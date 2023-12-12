@@ -1,0 +1,68 @@
+name: build
+
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/**.yml'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/**.yml'
+
+jobs:
+  linux:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build libsqlite3-dev zlib1g-dev
+
+      - name: Build
+        run: |
+          cmake . -G Ninja
+          ninja -j4
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: MC2MT-linux
+          path: bin/MC2MT
+
+
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          msystem: UCRT64
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-zlib
+            mingw-w64-ucrt-x86_64-sqlite3
+
+      - name: Build
+        run: |
+          cmake . -G Ninja
+          ninja -j4
+          for dll in $(ldd bin/MC2MT.exe | grep $MINGW_PREFIX | sed 's/.* => //' | sed 's/ \(.*\)//'); do cp $dll bin/; done
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: MC2MT-windows
+          path: bin/
+
