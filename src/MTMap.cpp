@@ -8,7 +8,7 @@
 #include <memory>
 #include <cassert>
 #include <cstring>
-#include "cpfs.hpp"
+#include <filesystem>
 
 
 #define SER_FMT_VER_HIGHEST_WRITE 25
@@ -55,14 +55,14 @@ MTMap::MTMap(const std::string & path) :
 {
 	init_conversions();
 
-	cpfs::Path cp_path(path);
-	if (!cpfs::is_directory(cp_path)) {
-		cpfs::create_directory(cp_path);
+	std::filesystem::path map_path(path);
+	if (!std::filesystem::is_directory(map_path)) {
+		std::filesystem::create_directory(map_path);
 	}
 
 	sqlite3_config(SQLITE_CONFIG_SINGLETHREAD);
 
-	SQLOK(sqlite3_open_v2((path + DIR_SEP + "map.sqlite").c_str(), &db,
+	SQLOK(sqlite3_open_v2((path + "/map.sqlite").c_str(), &db,
 			SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
 			nullptr), "opening database");
 

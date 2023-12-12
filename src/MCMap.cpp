@@ -10,7 +10,7 @@
 #include <fstream>
 #include <iostream>
 #include <csignal>
-#include "cpfs.hpp"
+#include <filesystem>
 
 
 #define CHUNK_OFS_POS(x, z) ((x & 0x1F) + (z & 0x1F) * 32) * 4
@@ -19,7 +19,7 @@
 MCMap::MCMap(const std::string & path) :
 	path(path)
 {
-	std::ifstream f(path + DIR_SEP + "level.dat",
+	std::ifstream f(path + "/level.dat",
 			std::ios::in | std::ios::binary);
 	std::string data;
 	char buf[4096];
@@ -41,8 +41,8 @@ MCMap::MCMap(const std::string & path) :
 void MCMap::listGroups(std::vector<MCGroup*> & v)
 {
 	MCFormat format = MCFormat::Regions;
-	for (const auto &entry : cpfs::DirIter(path + DIR_SEP + "region")) {
-		std::string filename = entry.name().utf8();
+	for (const auto &entry : std::filesystem::directory_iterator(path + "/region")) {
+		std::string filename = entry.path().filename();
 		Tokenizer tok(filename);
 
 		std::string x_s, z_s, ext;
@@ -85,7 +85,7 @@ void MCMap::listChunks(MCGroup * gid, MCChunkList * blocks)
 {
 	assert(gid->f == nullptr);
 
-	gid->f = new std::ifstream(path + DIR_SEP + "region" + DIR_SEP +
+	gid->f = new std::ifstream(path + "/region/" +
 		gid->name, std::ios::in | std::ios::binary);
 
 	int32_t chunk_x = gid->x * 32,
