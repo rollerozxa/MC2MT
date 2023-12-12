@@ -97,9 +97,9 @@ void MTMap::endSave()
 
 constexpr int64_t encodePos(const MTPos & p)
 {
-	return static_cast<uint64_t>(p.z) * 0x1000000 +
+	return static_cast<uint64_t>(p.z) * -(0x1000000) +
 		static_cast<uint64_t>(p.y) * 0x1000 +
-		static_cast<uint64_t>(p.x);
+		static_cast<uint64_t>(p.x) * -1;
 }
 
 

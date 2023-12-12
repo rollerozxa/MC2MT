@@ -34,7 +34,7 @@ MCMap::MCMap(const std::string & path) :
 		return;
 	}
 	meta.read(reinterpret_cast<const NBT::UByte *>(decomp.data()));
-	std::cerr << "Level data: " << meta[""]["Data"].dump() << std::endl;
+	//std::cerr << "Level data: " << meta[""]["Data"].dump() << std::endl;
 }
 
 
@@ -271,7 +271,7 @@ void MCBlock::reverseXAxis(uint16_t * data, const uint8_t * l)
 	for (uint16_t y = 0; y < MAP_BLOCK_SIZE; ++y)
 	for (uint16_t z = 0; z < MAP_BLOCK_SIZE; ++z)
 	for (uint16_t x = 0; x < MAP_BLOCK_SIZE; ++x) {
-		uint16_t i = (y << 8) | (z << 4) | ((MAP_BLOCK_SIZE-1) - x);
+		uint16_t i = (y << 8) | (((MAP_BLOCK_SIZE-1) - z) << 4) | (x);
 		data[data_key++] = l[i];
 	}
 }
@@ -284,10 +284,10 @@ void MCBlock::expandHalfBytes(uint8_t * data, const uint8_t * l)
 	for (uint16_t y = 0; y < MAP_BLOCK_SIZE; ++y)
 	for (uint16_t z = 0; z < MAP_BLOCK_SIZE; ++z)
 	for (uint16_t x = 0; x < MAP_BLOCK_SIZE/2;  ++x) {
-		int16_t i = (y << 7) | (z << 3) | (7 - x);
+		int16_t i = (y << 7) | (((MAP_BLOCK_SIZE-1) - z) << 3) | x;
 		uint8_t b = l[i];
-		data[data_key++] = (b >> 4) & 0xF;
 		data[data_key++] = b & 0xF;
+		data[data_key++] = (b >> 4) & 0xF;
 	}
 }
 
