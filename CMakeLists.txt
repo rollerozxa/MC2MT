@@ -33,6 +33,8 @@ include_directories(
 )
 
 if (MINGW)
+	target_link_libraries(${PROJECT_NAME} ws2_32.lib)
+
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mthreads")
 endif()
 
