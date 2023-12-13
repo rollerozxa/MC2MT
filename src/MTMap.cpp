@@ -9,6 +9,7 @@
 #include <cassert>
 #include <cstring>
 #include <filesystem>
+#include <fstream>
 
 
 #define SER_FMT_VER_HIGHEST_WRITE 25
@@ -49,6 +50,7 @@ MAKE_STR_WRITER(Long)
 #define writeString(str, s)     writeShort(str, (s).size()); (str).append(s)
 #define writeLongString(str, s) writeInt  (str, (s).size()); (str).append(s)
 
+int dummy_input;
 
 MTMap::MTMap(const std::string & path) :
 	path(path)
@@ -60,9 +62,42 @@ MTMap::MTMap(const std::string & path) :
 		std::filesystem::create_directory(map_path);
 	}
 
+	std::ofstream worldmt;
+	worldmt.open(path + "/world.mt");
+	worldmt << "backend = sqlite3\n"
+			<< "player_backend = sqlite3\n"
+			<< "auth_backend = sqlite3\n"
+			<< "mod_storage_backend = sqlite3\n"
+			<< "gameid = mineclonia\n";
+	worldmt.close();
+
+	if (!std::filesystem::is_directory("worldmods/"))
+		std::filesystem::create_directory("worldmods/");
+
+	if (!std::filesystem::is_directory("worldmods/"))
+		std::filesystem::create_directory("worldmods/__mc2mt/");
+
+	std::ofstream modf;
+	modf.open("worldmods/__mc2mt/init.lua");
+	modf << "minetest.set_mapgen_params({chunksize = 1})\n"
+		 << "minetest.set_mapgen_params({mgname = 'singlenode'})\n";
+	modf.close();
+
+	std::string map_sqlite = path + "/map.sqlite";
+
+	if (std::filesystem::exists(map_sqlite)) {
+		std::cout << "Warning: A map database already exists. If you continue, it will be overwritten.\n";
+		std::cout << "If this sounds like a bad idea, move the old map database out of the way or cancel the program.\n";
+
+		std::cin >> dummy_input;
+
+		if (std::filesystem::exists(map_sqlite))
+			std::filesystem::remove(map_sqlite);
+	}
+
 	sqlite3_config(SQLITE_CONFIG_SINGLETHREAD);
 
-	SQLOK(sqlite3_open_v2((path + "/map.sqlite").c_str(), &db,
+	SQLOK(sqlite3_open_v2(map_sqlite.c_str(), &db,
 			SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
 			nullptr), "opening database");
 
