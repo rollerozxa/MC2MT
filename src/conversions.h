@@ -165,7 +165,7 @@ CONV_DP(18, "minecraft:leaves", "7,15", "mcl_trees:leaves_jungle", 1);
 CONV_D(19, "minecraft:sponge", "0", "mcl_sponges:sponge");
 CONV_D(19, "minecraft:sponge", "1", "mcl_sponges:sponge_wet");
 
-CONV(20, "minecraft:glass", "default:glass");
+CONV(20, "minecraft:glass", "mcl_core:glass");
 
 CONV(21, "minecraft:lapis_ore", "mcl_core:stone_with_lapis");
 CONV(22, "minecraft:lapis_block", "mcl_core:lapisblock");
