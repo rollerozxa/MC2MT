@@ -71,14 +71,14 @@ MTMap::MTMap(const std::string & path) :
 			<< "gameid = mineclonia\n";
 	worldmt.close();
 
-	if (!std::filesystem::is_directory("worldmods/"))
-		std::filesystem::create_directory("worldmods/");
+	if (!std::filesystem::is_directory(path + "/worldmods/"))
+		std::filesystem::create_directory(path + "/worldmods/");
 
-	if (!std::filesystem::is_directory("worldmods/"))
-		std::filesystem::create_directory("worldmods/__mc2mt/");
+	if (!std::filesystem::is_directory(path + "/worldmods/"))
+		std::filesystem::create_directory(path + "/worldmods/__mc2mt/");
 
 	std::ofstream modf;
-	modf.open("worldmods/__mc2mt/init.lua");
+	modf.open(path + "/worldmods/__mc2mt/init.lua");
 	modf << "minetest.set_mapgen_params({chunksize = 1})\n"
 		 << "minetest.set_mapgen_params({mgname = 'singlenode'})\n";
 	modf.close();
