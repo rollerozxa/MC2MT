@@ -19,7 +19,7 @@ It is a command-line program. Call it from the terminal with two arguments, firs
 The program will also make a `world.mt` file as well as a worldmod that sets the mapgen to singlenode along with other things. If it detects a map database already present in the output location it will ask you before overwriting it.
 
 ## Building
-There is CI in place for building on Windows and Linux, which also produce binary artifacts that can be downloaded and used. This is especially useful for Windows users, but the Linux binary may not work for you depending on what distribution you are on.
+There is CI in place for building on Windows and Linux, which also produce binary artifacts that get uploaded to the [rolling](https://github.com/rollerozxa/MC2MT/releases/tag/rolling) release tag. This is especially useful for Windows users, but the Linux binary may not work for you depending on what distribution you are on and you would want to build from source using the instructions below.
 
 ### Linux
 Install the dependencies. In addition to a compiler toolchain, MC2MT requires SQLite3 and Zlib.
