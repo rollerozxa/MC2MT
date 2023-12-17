@@ -1,8 +1,8 @@
 #include "MTMap.hpp"
 #include "MCMap.hpp"
 #include "util.hpp"
-#include "serialization.hpp"
-#include "compression.hpp"
+#include "nbt/serialization.hpp"
+#include "nbt/compression.hpp"
 
 #include <iostream>
 #include <memory>

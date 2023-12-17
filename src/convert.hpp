@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Map.hpp"
-#include "nbt.hpp"
+#include "nbt/nbt.hpp"
 
 #define MC_VERSION 109
 

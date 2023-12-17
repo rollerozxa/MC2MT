@@ -1,4 +1,4 @@
-#include "nbt.hpp"
+#include "nbt/nbt.hpp"
 #include "util.hpp"
 #include "Map.hpp"
 

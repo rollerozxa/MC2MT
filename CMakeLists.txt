@@ -2,32 +2,44 @@ cmake_minimum_required(VERSION 3.5)
 
 project(MC2MT)
 
-add_executable(${PROJECT_NAME}
-	"${PROJECT_SOURCE_DIR}/src/main.cpp"
-	"${PROJECT_SOURCE_DIR}/src/convert.cpp"
-	"${PROJECT_SOURCE_DIR}/src/threads.cpp"
-	"${PROJECT_SOURCE_DIR}/src/MCMap.cpp"
-	"${PROJECT_SOURCE_DIR}/src/MTMap.cpp"
-)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+
+message(STATUS "*** Building MC2MT ***")
+
+if (NOT CMAKE_BUILD_TYPE)
+    message(STATUS "No build type selected, default to Release")
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules/")
 
-add_subdirectory(src/nbt)
-
-find_package(Threads REQUIRED)
 find_package(SQLite3 REQUIRED)
+find_package(Threads REQUIRED)
+find_package(ZLIB REQUIRED)
+
+include_directories(
+	${SQLite3_INCLUDE_DIR}
+	${ZLIB_INCLUDE_DIRS})
+
+set(SRCS
+	src/main.cpp
+	src/convert.cpp
+	src/threads.cpp
+	src/MCMap.cpp
+	src/MTMap.cpp
+	src/nbt/nbt.cpp
+	src/nbt/serialization.cpp
+	src/nbt/compression.cpp)
+
+add_executable(${PROJECT_NAME} ${SRCS})
 
 target_link_libraries(${PROJECT_NAME}
-	Threads::Threads
-	"nbt"
-	${ZLIB_LIBRARY}
 	${SQLite3_LIBRARY}
-)
-include_directories(
-	"${NBT_SOURCE_DIR}"
-	${ZLIB_INCLUDE_DIRS}
-	${SQLite3_INCLUDE_DIR}
-)
+	Threads::Threads
+	${ZLIB_LIBRARY})
+
 
 if (MINGW)
 	target_link_libraries(${PROJECT_NAME} ws2_32.lib)
@@ -35,6 +47,4 @@ if (MINGW)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mthreads")
 endif()
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-	COMPILE_FLAGS "-std=c++17 -Wall -Wextra -Wpedantic"
-	RUNTIME_OUTPUT_DIRECTORY "bin")
+set(EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_BINARY_DIR}/bin")

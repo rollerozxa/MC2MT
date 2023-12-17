@@ -1,9 +1,9 @@
 #include "MCMap.hpp"
 #include "util.hpp"
 
-#include "nbt.hpp"
-#include "serialization.hpp"
-#include "compression.hpp"
+#include "nbt/nbt.hpp"
+#include "nbt/serialization.hpp"
+#include "nbt/compression.hpp"
 #include "Map.hpp"
 
 #include <cstring>
