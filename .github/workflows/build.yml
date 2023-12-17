@@ -56,13 +56,12 @@ jobs:
 
       - name: Build
         run: |
-          cmake . -G Ninja
+          cmake . -G Ninja -DCMAKE_EXE_LINKER_FLAGS="-static" -DZLIB_LIBRARY_RELEASE=/ucrt64/lib/libz.a -DSQLite3_LIBRARY=/ucrt64/lib/libsqlite3.a
           ninja -j4
-          for dll in $(ldd bin/MC2MT.exe | grep $MINGW_PREFIX | sed 's/.* => //' | sed 's/ \(.*\)//'); do cp $dll bin/; done
 
       - name: Upload output as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: MC2MT-windows
-          path: bin/
+          name: MC2MT-windows.exe
+          path: bin/MC2MT.exe
 

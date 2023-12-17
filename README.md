@@ -61,7 +61,7 @@ ninja
 
 The resulting executable can be found as `./bin/MC2MT.exe`.
 
-The executable can be run perfectly fine inside of the UCRT64 environment, but if you want to run it outside of MSYS2 (somewhy) then you will need to bundle the necessary DLL files next to it. To collect them up see the [msys2-bundledlls](https://github.com/rollerozxa/msys2-bundledlls) script, or how the CI does it to collect the linked DLLs next to the executable.
+The executable can be run perfectly fine inside of the UCRT64 environment, but if you want to run it outside of MSYS2 (somewhy) then you will need to bundle the necessary DLL files next to it. To collect them up see the [msys2-bundledlls](https://github.com/rollerozxa/msys2-bundledlls) script, or how the CI does it to statically link the necessary libraries into the executable.
 
 ### Android
 You will need to install [Termux](https://termux.dev/). When installed, install the following packages in Termux:
