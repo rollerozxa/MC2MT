@@ -1,52 +1,77 @@
 
+// This file contains all the Minecraft block -> Minetest node mappings.
+
+// To see a list of block IDs in Minecraft 1.12: https://minecraft-ids.grahamedgecombe.com/
+
+// ## HELPER MACROS:
+
+// Main helper macro, gets wrapped by all other macros below
 #define CONV_ALL(id, mcn, datas, mtn, p2, is_tool, cb) \
 	static_assert(id <= MC_ID_MAX, "MC ID is out of range! (update MC_ID_MAX if adding new items)"); \
 	add_conversion(id, mcn, datas, mtn, p2, is_tool, cb)
+
+// Convert a basic block without any specific datavalue
 #define CONV(id, mcn, mtn) CONV_D(id, mcn, nullptr, mtn)
+
+// Convert a block with a specific datavalue
 #define CONV_D(id, mcn, datas, mtn) CONV_DP(id, mcn, datas, mtn, 0)
+
+// Convert a basic block into a specific minetest param2 value
 #define CONV_P(id, mcn, mtn, p2); CONV_DP(id, mcn, nullptr, mtn, p2)
+
+// Convert a block with a specific datavalue to a specific param2 value
 #define CONV_DP(id, mcn, datas, mtn, p2) CONV_DP_CB(id, mcn, datas, mtn, p2, nullptr)
+
+// CONV_DP with a conversion callback as the last argument
 #define CONV_DP_CB(id, mcn, datas, mtn, p2, cb) CONV_ALL(id, mcn, datas, mtn, p2, false, cb)
+
+// tool
 #define CONV_TOOL(id, mcn, mtn) CONV_ALL(id, mcn, nullptr, mtn, 0, true, nullptr)
 
+// Convert a stair block, mapping datavalue to param2 facedir
 #define CONV_STAIR(id, mcn, mtn) \
-	CONV_DP_CB(id, mcn, "0", mtn, 3, update_node_light); \
-	CONV_DP_CB(id, mcn, "1", mtn, 1, update_node_light); \
-	CONV_DP_CB(id, mcn, "2", mtn, 0, update_node_light); \
-	CONV_DP_CB(id, mcn, "3", mtn, 2, update_node_light); \
-	CONV_DP_CB(id, mcn, "4", mtn, 21, update_node_light); \
-	CONV_DP_CB(id, mcn, "5", mtn, 23, update_node_light); \
-	CONV_DP_CB(id, mcn, "6", mtn, 20, update_node_light); \
-	CONV_DP_CB(id, mcn, "7", mtn, 22, update_node_light)
+	CONV_DP_CB(id, mcn, "0", mtn, 1, update_node_light); \
+	CONV_DP_CB(id, mcn, "1", mtn, 3, update_node_light); \
+	CONV_DP_CB(id, mcn, "2", mtn, 2, update_node_light); \
+	CONV_DP_CB(id, mcn, "3", mtn, 0, update_node_light); \
+	CONV_DP_CB(id, mcn, "4", mtn, 23, update_node_light); \
+	CONV_DP_CB(id, mcn, "5", mtn, 21, update_node_light); \
+	CONV_DP_CB(id, mcn, "6", mtn, 22, update_node_light); \
+	CONV_DP_CB(id, mcn, "7", mtn, 20, update_node_light)
 
+// Convert a slab block, mapping up-down datavalue to respective minetest node
 #define CONV_SLAB(id, mcn, dbottom, dtop, mtn) \
 	CONV_DP_CB(id, mcn, #dbottom, mtn, 0, update_node_light); \
 	CONV_DP_CB(id, mcn, #dtop, mtn, 22, update_node_light)
 
+// Convert a trapdoor into minetest
 #define CONV_TRAPDOOR(id, mcn, mtn) \
-	CONV_DP(id, mcn, "0", mtn, 0); \
-	CONV_DP(id, mcn, "1", mtn, 2); \
-	CONV_DP(id, mcn, "2", mtn, 3); \
-	CONV_DP(id, mcn, "3", mtn, 1); \
-	CONV_DP(id, mcn, "4", mtn "_open", 0); \
-	CONV_DP(id, mcn, "5", mtn "_open", 2); \
-	CONV_DP(id, mcn, "6", mtn "_open", 3); \
-	CONV_DP(id, mcn, "7", mtn "_open", 1); \
-	CONV_DP(id, mcn, "8", mtn, 20); \
-	CONV_DP(id, mcn, "9", mtn, 22); \
+	CONV_DP(id, mcn, "0", mtn, 2); \
+	CONV_DP(id, mcn, "1", mtn, 0); \
+	CONV_DP(id, mcn, "2", mtn, 1); \
+	CONV_DP(id, mcn, "3", mtn, 3); \
+	CONV_DP(id, mcn, "4", mtn "_open", 2); \
+	CONV_DP(id, mcn, "5", mtn "_open", 0); \
+	CONV_DP(id, mcn, "6", mtn "_open", 1); \
+	CONV_DP(id, mcn, "7", mtn "_open", 3); \
+	CONV_DP(id, mcn, "8", mtn, 22); \
+	CONV_DP(id, mcn, "9", mtn, 20); \
 	CONV_DP(id, mcn, "10", mtn, 23); \
 	CONV_DP(id, mcn, "11", mtn, 21); \
-	CONV_DP(id, mcn, "12", mtn "_open", 20); \
-	CONV_DP(id, mcn, "13", mtn "_open", 22); \
+	CONV_DP(id, mcn, "12", mtn "_open", 22); \
+	CONV_DP(id, mcn, "13", mtn "_open", 20); \
 	CONV_DP(id, mcn, "14", mtn "_open", 23); \
 	CONV_DP(id, mcn, "15", mtn "_open", 21)
 
+// Convert rotateable tree log
 #define CONV_LOG(id, mcn, d, mtn) \
 	CONV_DP(id, mcn, #d,                                   mtn, 0); \
 	CONV_DP(id, mcn, std::to_string(d + (1 << 2)).c_str(), mtn, 12); \
 	CONV_DP(id, mcn, std::to_string(d + (2 << 2)).c_str(), mtn, 4); \
 	CONV_DP(id, mcn, std::to_string(d + (3 << 2)).c_str(), mtn, 0)
 
+// Convert wallmounted block (e.g. torches) variants to minetest's counterparts
+// (I don't think this should be used?)
 #define CONV_WALLMOUNTED(id, mcn, mtn, dt, db, dn, de, ds, dw) \
 	CONV_DP(id, mcn, #dt, mtn, 0); \
 	CONV_DP(id, mcn, #db, mtn, 1); \
@@ -55,6 +80,7 @@
 	CONV_DP(id, mcn, #ds, mtn, 4); \
 	CONV_DP(id, mcn, #dw, mtn, 2)
 
+// Fence gates
 // TODO: Check orientation
 #define CONV_GATE(id, mcn, mtn) \
 	CONV_DP(id, mcn, "0", mtn "_closed", 0); \
@@ -98,6 +124,9 @@
 	CONV_D(id, mcn, "8,9,10,11,12,13,14,15", mtn "_t_1");
 #endif // MC_VERSION < 102
 
+
+
+// ## MAPPINGS START HERE:
 
 CONV(0, "minecraft:air", "air");
 
@@ -178,14 +207,14 @@ CONV_D(24, "minecraft:sandstone", "2", "mcl_core:sandstonesmooth");
 
 CONV(25, "minecraft:noteblock", "mesecons_noteblock:noteblock"); // TODO
 
-CONV_DP(26, "minecraft:bed", "0,4", "mcl_beds:bed_red_bottom", 0); // S
-CONV_DP(26, "minecraft:bed", "1,5", "mcl_beds:bed_red_bottom", 1); // W
-CONV_DP(26, "minecraft:bed", "2,6", "mcl_beds:bed_red_bottom", 2); // N
-CONV_DP(26, "minecraft:bed", "3,7", "mcl_beds:bed_red_bottom", 3); // E
-CONV_DP(26, "minecraft:bed", "8,12", "mcl_beds:bed_red_top", 0);  // S
-CONV_DP(26, "minecraft:bed", "9,13", "mcl_beds:bed_red_top", 1);  // W
-CONV_DP(26, "minecraft:bed", "10,14", "mcl_beds:bed_red_top", 2); // N
-CONV_DP(26, "minecraft:bed", "11,15", "mcl_beds:bed_red_top", 3); // E
+CONV_DP(26, "minecraft:bed", "0,4", "mcl_beds:bed_red_bottom", 2); // S
+CONV_DP(26, "minecraft:bed", "1,5", "mcl_beds:bed_red_bottom", 3); // W
+CONV_DP(26, "minecraft:bed", "2,6", "mcl_beds:bed_red_bottom", 1); // N
+CONV_DP(26, "minecraft:bed", "3,7", "mcl_beds:bed_red_bottom", 1); // E
+CONV_DP(26, "minecraft:bed", "8,12", "mcl_beds:bed_red_top", 2);  // S
+CONV_DP(26, "minecraft:bed", "9,13", "mcl_beds:bed_red_top", 3);  // W
+CONV_DP(26, "minecraft:bed", "10,14", "mcl_beds:bed_red_top", 0); // N
+CONV_DP(26, "minecraft:bed", "11,15", "mcl_beds:bed_red_top", 1); // E
 
 // TODO?
 CONV(27, "minecraft:golden_rail", "mcl_minecarts:golden_rail");  // Powered rail
@@ -304,7 +333,12 @@ CONV(47, "minecraft:bookshelf", "mcl_books:bookshelf");
 CONV(48, "minecraft:mossy_cobblestone", "mcl_core:mossycobble");
 CONV(49, "minecraft:obsidian", "mcl_core:obsidian");
 
-CONV_WALLMOUNTED(50, "minecraft:torch", "mcl_torches:torch", 0, 5, 3, 2, 4, 1);
+CONV_DP(50, "minecraft:torch", "0", "mcl_torches:torch", 1);
+CONV_DP(50, "minecraft:torch", "1", "mcl_torches:torch_wall", 3);
+CONV_DP(50, "minecraft:torch", "2", "mcl_torches:torch_wall", 2);
+CONV_DP(50, "minecraft:torch", "3", "mcl_torches:torch_wall", 4);
+CONV_DP(50, "minecraft:torch", "4", "mcl_torches:torch_wall", 5);
+CONV_DP(50, "minecraft:torch", "5", "mcl_torches:torch", 1);
 
 CONV(51, "minecraft:fire", "mcl_fire:fire");
 
@@ -398,14 +432,14 @@ CONV_DP(77, "minecraft:stone_button", "3,11", "mesecons_button:button_off", 2);
 CONV_DP(77, "minecraft:stone_button", "4,12", "mesecons_button:button_off", 0);
 
 // Round snow height to nearest node
-CONV_D(78, "minecraft:snow_layer", "0", "default:snow");
-CONV_D(78, "minecraft:snow_layer", "1", "default:snow_2");
-CONV_D(78, "minecraft:snow_layer", "2", "default:snow_3");
-CONV_D(78, "minecraft:snow_layer", "3", "default:snow_4");
-CONV_D(78, "minecraft:snow_layer", "4", "default:snow_5");
-CONV_D(78, "minecraft:snow_layer", "5", "default:snow_6");
-CONV_D(78, "minecraft:snow_layer", "6", "default:snow_7");
-CONV_D(78, "minecraft:snow_layer", "7", "default:snow_8");
+CONV_D(78, "minecraft:snow_layer", "0", "mcl_core:snow");
+CONV_D(78, "minecraft:snow_layer", "1", "mcl_core:snow_2");
+CONV_D(78, "minecraft:snow_layer", "2", "mcl_core:snow_3");
+CONV_D(78, "minecraft:snow_layer", "3", "mcl_core:snow_4");
+CONV_D(78, "minecraft:snow_layer", "4", "mcl_core:snow_5");
+CONV_D(78, "minecraft:snow_layer", "5", "mcl_core:snow_6");
+CONV_D(78, "minecraft:snow_layer", "6", "mcl_core:snow_7");
+CONV_D(78, "minecraft:snow_layer", "7", "mcl_core:snow_8");
 
 CONV(79, "minecraft:ice", "mcl_core:ice");
 CONV(80, "minecraft:snow", "mcl_core:snowblock");
@@ -438,7 +472,13 @@ CONV_DP(91, "minecraft:lit_pumpkin", "1,5", "mcl_farming:pumpkin_face_light", 1)
 CONV_DP(91, "minecraft:lit_pumpkin", "2,6", "mcl_farming:pumpkin_face_light", 2);
 CONV_DP(91, "minecraft:lit_pumpkin", "3,7", "mcl_farming:pumpkin_face_light", 3);
 
-CONV(92, "minecraft:cake", "food:cake"); // TODO
+CONV_D(92, "minecraft:cake", "0", "mcl_cake:cake");
+CONV_D(92, "minecraft:cake", "1", "mcl_cake:cake_6");
+CONV_D(92, "minecraft:cake", "2", "mcl_cake:cake_5");
+CONV_D(92, "minecraft:cake", "3", "mcl_cake:cake_4");
+CONV_D(92, "minecraft:cake", "4", "mcl_cake:cake_3");
+CONV_D(92, "minecraft:cake", "5", "mcl_cake:cake_2");
+CONV_D(92, "minecraft:cake", "6", "mcl_cake:cake_1");
 
 // TODO: Check orientation
 CONV_DP(93, "minecraft:unpowered_repeater", "0", "mesecons_delayer:delayer_off_1", 1);
@@ -507,7 +547,6 @@ CONV_D(98, "minecraft:stonebrick", "1", "mcl_core:stonebrickmossy");
 CONV_D(98, "minecraft:stonebrick", "2", "mcl_core:stonebrickcracked");
 CONV_D(98, "minecraft:stonebrick", "3", "mcl_core:stonebrickcarved");
 
-
 // 99: Brown mushroom block (TODO)
 // 100: Red mushroom block (TODO)
 
@@ -544,10 +583,12 @@ CONV_D(118, "minecraft:cauldron", "1", "mcl_cauldrons:cauldron_1");  // TODO: sh
 CONV_D(118, "minecraft:cauldron", "2", "mcl_cauldrons:cauldron_2");  // TODO: should be 2/3 full
 CONV_D(118, "minecraft:cauldron", "3", "mcl_cauldrons:cauldron_3");  // TODO: should be full
 
-// 119: End portal
+CONV(119, "minecraft:end_portal", "mcl_portals:portal_end");
+
 // 120: End portal frame
-// 121: End stone
-// 122: Dragon egg
+
+CONV(121, "minecraft:end_stone", "mcl_end:end_stone");
+CONV(122, "minecraft:dragon_egg", "mcl_end:dragon_egg");
 
 CONV(123, "mesecons:redstone_lamp", "mesecons_lightstone:lightstone_off");
 CONV(124, "mesecons:lit_redstone_lamp", "mesecons_lightstone:lightstone_on");
@@ -575,7 +616,8 @@ CONV(129, "minecraft:emerald_ore", "mcl_core:stone_with_emerald");
 // 130: Ender chest
 // 131: Tripwire hook
 // 132: Tripwire
-// TODO 133: Emerald block
+
+CONV(133, "minecraft:emerald_block", "mcl_core:emeraldblock");
 
 CONV_STAIR(134, "minecraft:spruce_stairs", "mcl_stairs:stair_spruce");
 CONV_STAIR(135, "minecraft:birch_stairs", "mcl_stairs:stair_birch");
@@ -632,8 +674,11 @@ CONV(148, "minecraft:heavy_weighted_pressure_plate", "mesecons_pressureplates:pr
 // TODO: 149: Redstone comparator (off) (logic gates)
 // 150: Redstone comparator (on)
 // 151: Solar panel
-// 152: Redstone block
-// 153: Nether quartz ore
+
+CONV(152, "minecraft:redstone_block", "mesecons_torch:redstoneblock");
+
+CONV(153, "minecraft:quartz_ore", "mcl_nether:quartz_ore");
+
 // 154: Hopper
 
 CONV_D(155, "minecraft:quartz_block", "0", "mcl_nether:quartz_block");
@@ -666,8 +711,22 @@ CONV_D(159, "minecraft:stained_hardened_clay", "13", "mcl_colorblocks:hardened_c
 CONV_D(159, "minecraft:stained_hardened_clay", "14", "mcl_colorblocks:hardened_clay_red");
 CONV_D(159, "minecraft:stained_hardened_clay", "15", "mcl_colorblocks:hardened_clay_black");
 
-// TODO: tinted panes
-CONV(160, "minecraft:stained_glass_pane", "mcl_panes:pane_white_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "0", "mcl_panes:pane_white_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "1", "mcl_panes:pane_orange_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "2", "mcl_panes:pane_magenta_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "3", "mcl_panes:pane_light_blue_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "4", "mcl_panes:pane_yellow_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "5", "mcl_panes:pane_lime_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "6", "mcl_panes:pane_pink_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "7", "mcl_panes:pane_grey_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "8", "mcl_panes:pane_silver_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "9", "mcl_panes:pane_cyan_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "10", "mcl_panes:pane_purple_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "11", "mcl_panes:pane_blue_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "12", "mcl_panes:pane_brown_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "13", "mcl_panes:pane_green_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "14", "mcl_panes:pane_red_flat");
+CONV_D(160, "minecraft:stained_glass_pane", "15", "mcl_panes:pane_black_flat");
 
 CONV_D(161, "minecraft:leaves2", "0,8", "mcl_trees:leaves_acacia");
 CONV_D(161, "minecraft:leaves2", "1,9", "mcl_trees:leaves_dark_oak");
@@ -685,24 +744,48 @@ CONV(166, "minecraft:barrier", "mcl_core:barrier");
 
 CONV_TRAPDOOR(167, "minecraft:iron_trapdoor", "mcl_doors:iron_trapdoor");
 
-// 168: Prismarine
-// 169: Sea lantern
+CONV_D(168, "minecraft:prismarine", "0", "mcl_ocean:prismarine");
+CONV_D(168, "minecraft:prismarine", "1", "mcl_ocean:prismarine_brick");
+CONV_D(168, "minecraft:prismarine", "2", "mcl_ocean:prismarine_dark");
+
+CONV(169, "minecraft:sea_lantern", "mcl_ocean:sea_lantern");
 
 CONV(170, "minecraft:hay_block", "mcl_farming:hay_block");
+CONV_DP(170, "minecraft:hay_block", "0", "mcl_farming:hay_block", 0);
+CONV_DP(170, "minecraft:hay_block", "4", "mcl_farming:hay_block", 12);
+CONV_DP(170, "minecraft:hay_block", "8", "mcl_farming:hay_block", 6);
 
-// 171: Carpets
+CONV_D(171, "minecraft:carpet", "0", "mcl_wool:white_carpet");
+CONV_D(171, "minecraft:carpet", "1", "mcl_wool:orange_carpet");
+CONV_D(171, "minecraft:carpet", "2", "mcl_wool:magenta_carpet");
+CONV_D(171, "minecraft:carpet", "3", "mcl_wool:light_blue_carpet");
+CONV_D(171, "minecraft:carpet", "4", "mcl_wool:yellow_carpet");
+CONV_D(171, "minecraft:carpet", "5", "mcl_wool:lime_carpet");
+CONV_D(171, "minecraft:carpet", "6", "mcl_wool:pink_carpet");
+CONV_D(171, "minecraft:carpet", "7", "mcl_wool:grey_carpet");
+CONV_D(171, "minecraft:carpet", "8", "mcl_wool:silver_carpet");
+CONV_D(171, "minecraft:carpet", "9", "mcl_wool:cyan_carpet");
+CONV_D(171, "minecraft:carpet", "10", "mcl_wool:purple_carpet");
+CONV_D(171, "minecraft:carpet", "11", "mcl_wool:blue_carpet");
+CONV_D(171, "minecraft:carpet", "12", "mcl_wool:brown_carpet");
+CONV_D(171, "minecraft:carpet", "13", "mcl_wool:green_carpet");
+CONV_D(171, "minecraft:carpet", "14", "mcl_wool:red_carpet");
+CONV_D(171, "minecraft:carpet", "15", "mcl_wool:black_carpet");
 
 CONV(172, "minecraft:hardened_clay", "mcl_colorblocks:hardened_clay");
 CONV(173, "minecraft:coal_block", "mcl_core:coalblock");
 CONV(174, "minecraft:packed_ice", "mcl_core:packed_ice");
 
-// TODO
-//CONV_D(175, "minecraft:double_plant", "0", "flowers:dandelion_yellow");  // Sunflower
-//CONV_D(175, "minecraft:double_plant", "1", "flowers:viola");  // Lilac
-//CONV_DP_CB(175, "minecraft:double_plant", "2", "default:junglegrass", 0, update_node_light);  // Double-tall grass
-//CONV_D(175, "minecraft:double_plant", "3", "default:junglegrass");  // Large fern
-//CONV_D(175, "minecraft:double_plant", "4", "flowers:rose");  // Rose bush
-//CONV_D(175, "minecraft:double_plant", "5", "flowers:dandelion_white");  // Peony
+CONV_D(175, "minecraft:double_plant", "0", "mcl_flowers:sunflower");
+CONV_D(175, "minecraft:double_plant", "1", "mcl_flowers:lilac");
+CONV_DP_CB(175, "minecraft:double_plant", "2", "mcl_flowers:double_grass", 0, update_node_light);
+CONV_D(175, "minecraft:double_plant", "3", "mcl_flowers:double_fern");
+CONV_D(175, "minecraft:double_plant", "4", "mcl_flowers:rose_bush");
+CONV_D(175, "minecraft:double_plant", "5", "mcl_flowers:peony");
+
+// "Bug in minecraft maps all top halves [of flowers] to '175 10'"
+// TODO: investigate this
+
 
 // 176: Standing banner
 // 177: Wall banner
@@ -735,18 +818,26 @@ CONV_DOOR(195, "minecraft:jungle_door", "mcl_doors:door_jungle");
 CONV_DOOR(196, "minecraft:acacia_door", "mcl_doors:door_acacia");
 CONV_DOOR(197, "minecraft:dark_oak_door", "mcl_doors:door_dark_oak");
 
-// 198: End rod
-// 199: Chorus plant
-// 200: Chorus flower
-// 201: Purpur block
-// 202: Purpur pillar
-// 203: Purpur stairs
-// 204: Purpur double slab
-// 205: Purpur slab
+// TODO: rotation
+CONV(198, "minecraft:end_rod", "mcl_end:end_rod");
+CONV(199, "minecraft:chorus_plant", "mcl_end:chorus_plant");
+CONV(200, "minecraft:chorus_flower", "mcl_end:chorus_flower"); // TODO: chorus flower can die?
+CONV(201, "minecraft:purpur_block", "mcl_end:purpur_block");
+
+// TODO: rotation
+CONV(202, "minecraft:purpur_pillar", "mcl_end:purpur_pillar");
+
+CONV_STAIR(203, "minecraft:purpur_stairs", "mcl_stairs:stair_purpur_block");
+
+CONV(204, "minecraft:purpur_double_slab", "mcl_stairs:slab_purpur_block");
+CONV_SLAB(205, "minecraft:purpur_slab", 0, 8, "mcl_stairs:slab_purpur_block");
 
 CONV(206, "minecraft:end_bricks", "mcl_end:end_bricks");
 
-// 207: Beetroot seeds
+CONV_D(207, "minecraft:beetroots", "0", "mcl_farming:beetroot_0");
+CONV_D(207, "minecraft:beetroots", "1", "mcl_farming:beetroot_1");
+CONV_D(207, "minecraft:beetroots", "2", "mcl_farming:beetroot_2");
+CONV_D(207, "minecraft:beetroots", "3", "mcl_farming:beetroot");
 
 CONV(208, "minecraft:grass_path", "mcl_core:grass_path");
 
@@ -754,7 +845,63 @@ CONV(208, "minecraft:grass_path", "mcl_core:grass_path");
 // 210: Repeating command block
 // 211: Chain command block
 
-CONV(212, "minecraft:frosted_ice", "mcl_core:frosted_ice");
+CONV_D(212, "minecraft:frosted_ice", "0", "mcl_core:frosted_ice_0");
+CONV_D(212, "minecraft:frosted_ice", "1", "mcl_core:frosted_ice_1");
+CONV_D(212, "minecraft:frosted_ice", "2", "mcl_core:frosted_ice_2");
+CONV_D(212, "minecraft:frosted_ice", "3", "mcl_core:frosted_ice_3");
 
-// 213-254: Unused
+CONV(213, "minecraft:magma", "mcl_nether:magma");
+CONV(214, "minecraft:nether_wart_block", "mcl_nether:nether_wart_block");
+CONV(215, "minecraft:red_nether_brick", "mcl_nether:red_nether_brick");
+
+CONV_DP(216, "minecraft:bone_block", "0", "mcl_core:bone_block", 0);
+CONV_DP(216, "minecraft:bone_block", "4", "mcl_core:bone_block", 12);
+CONV_DP(216, "minecraft:bone_block", "8", "mcl_core:bone_block", 6);
+
+
+// 217: Structure Void
+// 218: Observer
+
+// 219-234: Shulker Box (coloured variants)
+
+// 235-250: Glazed Terracotta (coloured variants)
+
+
+
+CONV_D(251, "minecraft:concrete", "0", "mcl_colorblocks:concrete_white");
+CONV_D(251, "minecraft:concrete", "1", "mcl_colorblocks:concrete_orange");
+CONV_D(251, "minecraft:concrete", "2", "mcl_colorblocks:concrete_magenta");
+CONV_D(251, "minecraft:concrete", "3", "mcl_colorblocks:concrete_light_blue");
+CONV_D(251, "minecraft:concrete", "4", "mcl_colorblocks:concrete_yellow");
+CONV_D(251, "minecraft:concrete", "5", "mcl_colorblocks:concrete_lime");
+CONV_D(251, "minecraft:concrete", "6", "mcl_colorblocks:concrete_pink");
+CONV_D(251, "minecraft:concrete", "7", "mcl_colorblocks:concrete_grey");
+CONV_D(251, "minecraft:concrete", "8", "mcl_colorblocks:concrete_silver");
+CONV_D(251, "minecraft:concrete", "9", "mcl_colorblocks:concrete_cyan");
+CONV_D(251, "minecraft:concrete", "10", "mcl_colorblocks:concrete_purple");
+CONV_D(251, "minecraft:concrete", "11", "mcl_colorblocks:concrete_blue");
+CONV_D(251, "minecraft:concrete", "12", "mcl_colorblocks:concrete_brown");
+CONV_D(251, "minecraft:concrete", "13", "mcl_colorblocks:concrete_green");
+CONV_D(251, "minecraft:concrete", "14", "mcl_colorblocks:concrete_red");
+CONV_D(251, "minecraft:concrete", "15", "mcl_colorblocks:concrete_black");
+
+CONV_D(252, "minecraft:concrete_powder", "0", "mcl_colorblocks:concrete_powder_white");
+CONV_D(252, "minecraft:concrete_powder", "1", "mcl_colorblocks:concrete_powder_orange");
+CONV_D(252, "minecraft:concrete_powder", "2", "mcl_colorblocks:concrete_powder_magenta");
+CONV_D(252, "minecraft:concrete_powder", "3", "mcl_colorblocks:concrete_powder_light_blue");
+CONV_D(252, "minecraft:concrete_powder", "4", "mcl_colorblocks:concrete_powder_yellow");
+CONV_D(252, "minecraft:concrete_powder", "5", "mcl_colorblocks:concrete_powder_lime");
+CONV_D(252, "minecraft:concrete_powder", "6", "mcl_colorblocks:concrete_powder_pink");
+CONV_D(252, "minecraft:concrete_powder", "7", "mcl_colorblocks:concrete_powder_grey");
+CONV_D(252, "minecraft:concrete_powder", "8", "mcl_colorblocks:concrete_powder_silver");
+CONV_D(252, "minecraft:concrete_powder", "9", "mcl_colorblocks:concrete_powder_cyan");
+CONV_D(252, "minecraft:concrete_powder", "10", "mcl_colorblocks:concrete_powder_purple");
+CONV_D(252, "minecraft:concrete_powder", "11", "mcl_colorblocks:concrete_powder_blue");
+CONV_D(252, "minecraft:concrete_powder", "12", "mcl_colorblocks:concrete_powder_brown");
+CONV_D(252, "minecraft:concrete_powder", "13", "mcl_colorblocks:concrete_powder_green");
+CONV_D(252, "minecraft:concrete_powder", "14", "mcl_colorblocks:concrete_powder_red");
+CONV_D(252, "minecraft:concrete_powder", "15", "mcl_colorblocks:concrete_powder_black");
+
+// 253 and 254 are not used by 1.12 (and 1.13 gets rid of numeric block IDs altogether)
+
 // 255: Structure block
