@@ -74,7 +74,7 @@ MTMap::MTMap(const std::string & path) :
 	if (!std::filesystem::is_directory(path + "/worldmods/"))
 		std::filesystem::create_directory(path + "/worldmods/");
 
-	if (!std::filesystem::is_directory(path + "/worldmods/"))
+	if (!std::filesystem::is_directory(path + "/worldmods/__mc2mt/"))
 		std::filesystem::create_directory(path + "/worldmods/__mc2mt/");
 
 	std::ofstream modf;
