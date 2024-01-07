@@ -3,7 +3,7 @@
 #ifndef NBT_ENDIAN_HEADER
 #define NBT_ENDIAN_HEADER
 
-#if defined(__linux__) || defined(__CYGWIN__)
+#if defined(__linux__) || defined(__CYGWIN__) || defined(EMSCRIPTEN)
 	#include <endian.h>
 #elif defined(__APPLE__)
 	#include <libkern/OSByteOrder.h>
