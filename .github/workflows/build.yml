@@ -16,7 +16,7 @@ jobs:
   linux:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install deps
         run: |
@@ -29,7 +29,7 @@ jobs:
           ninja -j4
 
       - name: Upload output as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MC2MT-linux
           path: bin/MC2MT
@@ -41,6 +41,7 @@ jobs:
           file: bin/MC2MT
           asset_name: MC2MT-linux
           tag: 'rolling'
+          overwrite: true
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
 
@@ -50,11 +51,12 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: msys2/setup-msys2@v2
         with:
           update: true
+          release: false
           msystem: UCRT64
           install: >-
             mingw-w64-ucrt-x86_64-gcc
@@ -69,7 +71,7 @@ jobs:
           ninja -j4
 
       - name: Upload output as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MC2MT-windows.exe
           path: bin/MC2MT.exe
@@ -81,5 +83,38 @@ jobs:
           file: bin/MC2MT.exe
           asset_name: MC2MT-windows.exe
           tag: 'rolling'
+          overwrite: true
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
+  macos:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install deps
+        run: |
+          export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+          export HOMEBREW_NO_INSTALL_CLEANUP=1
+          brew update --auto-update
+          brew install --display-times cmake ninja sqlite zlib
+
+      - name: Build
+        run: |
+          cmake . -G Ninja
+          ninja -j4
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MC2MT-macos
+          path: bin/MC2MT
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: bin/MC2MT
+          asset_name: MC2MT-macos
+          tag: 'rolling'
+          overwrite: true
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'

@@ -19,7 +19,9 @@ It is a command-line program. Call it from the terminal with two arguments, firs
 The program will also make a `world.mt` file as well as a worldmod that sets the mapgen to singlenode along with other things. If it detects a map database already present in the output location it will ask you before overwriting it.
 
 ## Building
-There is CI in place for building on Windows and Linux, which also produce binary artifacts that get uploaded to the [rolling](https://github.com/rollerozxa/MC2MT/releases/tag/rolling) release tag. This is especially useful for Windows users, but the Linux binary may not work for you depending on what distribution you are on and you would want to build from source using the instructions below.
+There is CI in place for building on Windows, macOS and Linux, which also produce binary artifacts that get uploaded to the [rolling](https://github.com/rollerozxa/MC2MT/releases/tag/rolling) release tag. This is especially useful for Windows and macOS users who do not want to compile, but the Linux binary may not work for you depending on what distribution you are on and you would want to build from source using the instructions below.
+
+All instructions below assume you have already downloaded or cloned the source code somewhere (e.g. `git clone https://github.com/rollerozxa/MC2MT`).
 
 ### Linux
 Install the dependencies. In addition to a compiler toolchain, MC2MT requires SQLite3 and Zlib.
@@ -68,6 +70,22 @@ You will need to install [Termux](https://termux.dev/). When installed, install 
 
 ```bash
 pkg install clang cmake ninja libsqlite zlib
+```
+
+Then build:
+
+```bash
+cmake . -G Ninja
+ninja
+```
+
+The resulting executable can be found as `./bin/MC2MT`.
+
+### macOS
+You will need to install [Homebrew](https://brew.sh/). When installed, install the following packages with Homebrew:
+
+```bash
+brew install cmake ninja sqlite zlib
 ```
 
 Then build:
