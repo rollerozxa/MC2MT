@@ -39,10 +39,10 @@
 	CONV_DP_CB(id, mcn, "6", mtn, 22, update_node_light); \
 	CONV_DP_CB(id, mcn, "7", mtn, 20, update_node_light)
 
-// Convert a slab block, mapping up-down datavalue to respective minetest node
+// Convert a slab block, mapping up-down datavalue to respective mineclonia node
 #define CONV_SLAB(id, mcn, dbottom, dtop, mtn) \
 	CONV_DP_CB(id, mcn, #dbottom, mtn, 0, update_node_light); \
-	CONV_DP_CB(id, mcn, #dtop, mtn, 22, update_node_light)
+	CONV_DP_CB(id, mcn, #dtop, mtn "_top", 0, update_node_light)
 
 // Convert a trapdoor into minetest
 #define CONV_TRAPDOOR(id, mcn, mtn) \
@@ -81,12 +81,12 @@
 	CONV_DP(id, mcn, #dw, mtn, 2)
 
 // Fence gates
-// TODO: Check orientation
+// TODO: Check orientation 0:N 3:W 2:S 1:E
 #define CONV_GATE(id, mcn, mtn) \
-	CONV_DP(id, mcn, "0", mtn "_closed", 0); \
-	CONV_DP(id, mcn, "1", mtn "_closed", 2); \
-	CONV_DP(id, mcn, "2", mtn "_closed", 3); \
-	CONV_DP(id, mcn, "3", mtn "_closed", 1); \
+	CONV_DP(id, mcn, "0", mtn "", 0); \
+	CONV_DP(id, mcn, "1", mtn "", 3); \
+	CONV_DP(id, mcn, "2", mtn "", 2); \
+	CONV_DP(id, mcn, "3", mtn "", 1); \
 	CONV_DP(id, mcn, "4", mtn "_open", 0); \
 	CONV_DP(id, mcn, "5", mtn "_open", 2); \
 	CONV_DP(id, mcn, "6", mtn "_open", 3); \
@@ -199,13 +199,17 @@ CONV(20, "minecraft:glass", "mcl_core:glass");
 CONV(21, "minecraft:lapis_ore", "mcl_core:stone_with_lapis");
 CONV(22, "minecraft:lapis_block", "mcl_core:lapisblock");
 
-// TODO: 23: Dispenser
+// TODO: check orientation
+CONV_DP(23, "minecraft:dispenser", "2", "mcl_dispensers:dropper", 0);
+CONV_DP(23, "minecraft:dispenser", "3", "mcl_dispensers:dropper", 2);
+CONV_DP(23, "minecraft:dispenser", "4", "mcl_dispensers:dropper", 3);
+CONV_DP(23, "minecraft:dispenser", "5", "mcl_dispensers:dropper", 1);
 
 CONV_D(24, "minecraft:sandstone", "0", "mcl_core:sandstone");
 CONV_D(24, "minecraft:sandstone", "1", "mcl_core:sandstonecarved");
 CONV_D(24, "minecraft:sandstone", "2", "mcl_core:sandstonesmooth");
 
-CONV(25, "minecraft:noteblock", "mesecons_noteblock:noteblock"); // TODO
+CONV(25, "minecraft:noteblock", "mcl_noteblock:noteblock"); // TODO
 
 CONV_DP(26, "minecraft:bed", "0,4", "mcl_beds:bed_red_bottom", 2); // S
 CONV_DP(26, "minecraft:bed", "1,5", "mcl_beds:bed_red_bottom", 3); // W
@@ -307,13 +311,13 @@ CONV(42, "minecraft:iron_block", "mcl_core:ironblock");
 
 // Double slabs
 CONV_D(43, "minecraft:double_stone_slab", "0", "mcl_stairs:slab_stone_double");
-CONV_D(43, "minecraft:double_stone_slab", "1", "mcl_core:sandstone");
-CONV_D(43, "minecraft:double_stone_slab", "2", "mcl_trees:wood_oak");
-CONV_D(43, "minecraft:double_stone_slab", "3", "mcl_core:cobble");
-CONV_D(43, "minecraft:double_stone_slab", "4", "mcl_core:brick_block");
-CONV_D(43, "minecraft:double_stone_slab", "5", "mcl_core:stonebrick");
-CONV_D(43, "minecraft:double_stone_slab", "6", "mcl_nether:nether_brick");
-CONV_D(43, "minecraft:double_stone_slab", "7", "mcl_nether:quartz_block");
+CONV_D(43, "minecraft:double_stone_slab", "1", "mcl_stairs:slab_sandstone_double");
+CONV_D(43, "minecraft:double_stone_slab", "2", "mcl_stairs:slab_oak_double"); // todo
+CONV_D(43, "minecraft:double_stone_slab", "3", "mcl_stairs:slab_cobble_double");
+CONV_D(43, "minecraft:double_stone_slab", "4", "mcl_stairs:slab_brick_block_double");
+CONV_D(43, "minecraft:double_stone_slab", "5", "mcl_stairs:slab_stonebrick_double");
+CONV_D(43, "minecraft:double_stone_slab", "6", "mcl_stairs:slab_nether_brick");
+CONV_D(43, "minecraft:double_stone_slab", "7", "mcl_stairs:slab_quartzblock_double");
 CONV_D(43, "minecraft:double_stone_slab", "8", "mcl_core:stone_smooth");
 CONV_D(43, "minecraft:double_stone_slab", "9", "mcl_core:sandstone");
 CONV_D(43, "minecraft:double_stone_slab", "10", "mcl_nether:quartz_chiseled");
@@ -403,20 +407,22 @@ CONV_DP(68, "minecraft:wall_sign", "4", "mcl_signs:wall_sign", 2); // W
 CONV_DP(68, "minecraft:wall_sign", "5", "mcl_signs:wall_sign", 3); // E
 
 // XXX: Support up/down levers
-CONV_DP(69, "minecraft:lever", "1", "mesecons_walllever:wall_lever_off", 1);  // E
-CONV_DP(69, "minecraft:lever", "2", "mesecons_walllever:wall_lever_off", 3);  // W
-CONV_DP(69, "minecraft:lever", "3", "mesecons_walllever:wall_lever_off", 2);  // S
-CONV_DP(69, "minecraft:lever", "4,0,5,6,7", "mesecons_walllever:wall_lever_off", 0);  // N, up, down
-CONV_DP(69, "minecraft:lever", "9", "mesecons_walllever:wall_lever_on", 1);  // E
-CONV_DP(69, "minecraft:lever", "10", "mesecons_walllever:wall_lever_on", 3);  // W
-CONV_DP(69, "minecraft:lever", "11", "mesecons_walllever:wall_lever_on", 2);  // S
-CONV_DP(69, "minecraft:lever", "12,8,13,14,15", "mesecons_walllever:wall_lever_on", 0);  // N, up, down
+CONV_DP(69, "minecraft:lever", "1", "mcl_lever:lever_off", 3);  // W
+CONV_DP(69, "minecraft:lever", "2", "mcl_lever:lever_off", 1);  // E
+CONV_DP(69, "minecraft:lever", "3", "mcl_lever:lever_off", 0);  // N
+CONV_DP(69, "minecraft:lever", "4,0,5,6,7", "mcl_lever:lever_off", 2);  // S, up, down
 
-CONV(70, "minecraft:stone_pressure_plate", "mesecons_pressureplates:pressure_plate_stone_off");
+CONV_DP(69, "minecraft:lever", "9", "mcl_lever:lever_on", 3);   // W
+CONV_DP(69, "minecraft:lever", "10", "mcl_lever:lever_on", 1);  // E
+CONV_DP(69, "minecraft:lever", "11", "mcl_lever:lever_on", 0);  // N
+CONV_DP(69, "minecraft:lever", "12,8,13,14,15", "mcl_lever:lever_on", 2);  // S, up, down
+
+CONV(70, "minecraft:stone_pressure_plate", "mcl_pressureplates:pressure_plate_stone_off");
 
 CONV_DOOR(71, "minecraft:iron_door", "mcl_doors:iron_door");
 
-CONV(72, "minecraft:wooden_pressure_plate", "mesecons_pressureplates:pressure_plate_oak_off");
+// TODO wood types?
+CONV(72, "minecraft:wooden_pressure_plate", "mcl_pressureplates:pressure_plate_oak_off");
 
 CONV(73, "minecraft:redstone_ore", "mcl_core:stone_with_redstone");
 CONV(74, "minecraft:lit_redstone_ore", "mcl_core:stone_with_redstone_lit");
@@ -424,12 +430,13 @@ CONV(74, "minecraft:lit_redstone_ore", "mcl_core:stone_with_redstone_lit");
 CONV_WALLMOUNTED(75, "minecraft:unlit_redstone_torch", "mesecons_torch:mesecon_torch_off", 0, 5, 3, 2, 4, 1);
 CONV_WALLMOUNTED(76, "minecraft:lit_redstone_torch", "mesecons_torch:mesecon_torch_on", 0, 5, 3, 2, 4, 1);
 
-// TODO: Up/Down orienations (requires mesecons support)
+// TODO: Up/Down orienations
 // Note: power state is ignored, since it resets quickly.  See also: wooden button
-CONV_DP(77, "minecraft:stone_button", "1,9,0,8,5,13", "mesecons_button:button_off", 1);
-CONV_DP(77, "minecraft:stone_button", "2,10", "mesecons_button:button_off", 3);
-CONV_DP(77, "minecraft:stone_button", "3,11", "mesecons_button:button_off", 2);
-CONV_DP(77, "minecraft:stone_button", "4,12", "mesecons_button:button_off", 0);
+// N:4, S:5, W:3, E:2, Up:0, Down:1
+CONV_DP(77, "minecraft:stone_button", "1,9,0,8,5,13", "mcl_buttons:button_stone_off", 3);
+CONV_DP(77, "minecraft:stone_button", "2,10", "mcl_buttons:button_stone_off", 2);
+CONV_DP(77, "minecraft:stone_button", "3,11", "mcl_buttons:button_stone_off", 4);
+CONV_DP(77, "minecraft:stone_button", "4,12", "mcl_buttons:button_stone_off", 5);
 
 // Round snow height to nearest node
 CONV_D(78, "minecraft:snow_layer", "0", "mcl_core:snow");
@@ -461,7 +468,7 @@ CONV_DP(86, "minecraft:pumpkin", "3", "mcl_farming:pumpkin_face", 3);
 CONV(87, "minecraft:netherrack", "mcl_nether:netherrack");
 CONV(88, "minecraft:soul_sand", "mcl_nether:soul_sand");
 CONV(89, "minecraft:glowstone", "mcl_nether:glowstone");
-// XXX: Orientation not stored
+// TODO: Orientation not stored
 CONV(90, "minecraft:portal", "mcl_portals:portal");
 
 // Jack o'lantern
@@ -551,14 +558,18 @@ CONV_D(98, "minecraft:stonebrick", "3", "mcl_core:stonebrickcarved");
 // 100: Red mushroom block (TODO)
 
 CONV(101, "minecraft:iron_bars", "mcl_panes:bar");
-CONV(102, "minecraft:glass_pane", "mcl_panes:pane_natural");
+CONV(102, "minecraft:glass_pane", "mcl_panes:pane_natural"); // TODO: glass not connected to walls
 
 CONV(103, "minecraft:melon_block", "mcl_farming:melon");
 
 // 104: Pumpkin stem (TODO)
 // 105: Melon stem (TODO)
 
-CONV(106, "minecraft:vine", "mcl_core:vine");  // TODO: Use real vines
+// TODO: check orientation
+CONV_DP(106, "minecraft:vine", "1", "mcl_core:vine", 5);
+CONV_DP(106, "minecraft:vine", "2", "mcl_core:vine", 3);
+CONV_DP(106, "minecraft:vine", "5", "mcl_core:vine", 2); // fixme: not "5" or "3"
+CONV_DP(106, "minecraft:vine", "4", "mcl_core:vine", 4);
 
 CONV_GATE(107, "minecraft:fence_gate", "mcl_fences:oak_fence_gate");
 
@@ -575,8 +586,13 @@ CONV(113, "minecraft:nether_brick_fence", "mcl_fences:nether_brick_fence");
 CONV_STAIR(114, "minecraft:nether_brick_stairs", "mcl_stairs:stair_nether_brick");
 
 // 115: Nether wart (TODO!!!)
-// 116: Enchantment table
-// 117: Brewing stand
+
+CONV_DP(116, "minecraft:enchanting_table", "2", "mcl_enchanting:table", 0);  // N
+CONV_DP(116, "minecraft:enchanting_table", "3", "mcl_enchanting:table", 2);  // S
+CONV_DP(116, "minecraft:enchanting_table", "4", "mcl_enchanting:table", 3);  // W
+CONV_DP(116, "minecraft:enchanting_table", "5", "mcl_enchanting:table", 1);  // E
+
+// 117: Brewing stand (TODO) --> 117:0 , 117:4
 
 CONV_D(118, "minecraft:cauldron", "0", "mcl_cauldrons:cauldron");
 CONV_D(118, "minecraft:cauldron", "1", "mcl_cauldrons:cauldron_1");  // TODO: should be 1/3 full
@@ -590,15 +606,15 @@ CONV(119, "minecraft:end_portal", "mcl_portals:portal_end");
 CONV(121, "minecraft:end_stone", "mcl_end:end_stone");
 CONV(122, "minecraft:dragon_egg", "mcl_end:dragon_egg");
 
-CONV(123, "mesecons:redstone_lamp", "mesecons_lightstone:lightstone_off");
-CONV(124, "mesecons:lit_redstone_lamp", "mesecons_lightstone:lightstone_on");
+CONV(123, "mesecons:redstone_lamp", "mcl_redstone_lamp:lamp_off");
+CONV(124, "mesecons:lit_redstone_lamp", "mcl_redstone_lamp:lamp_on");
 
-CONV_D(125, "minecraft:double_wooden_slab", "0", "mcl_trees:wood_oak");
-CONV_D(125, "minecraft:double_wooden_slab", "1", "mcl_trees:wood_spruce");
-CONV_D(125, "minecraft:double_wooden_slab", "2", "mcl_trees:wood_birch");
-CONV_D(125, "minecraft:double_wooden_slab", "3", "mcl_trees:wood_jungle");
-CONV_D(125, "minecraft:double_wooden_slab", "4", "mcl_trees:wood_acacia");
-CONV_D(125, "minecraft:double_wooden_slab", "5", "mcl_trees:wood_dark_oak");
+CONV_D(125, "minecraft:double_wooden_slab", "0", "mcl_stairs:slab_oak_double");
+CONV_D(125, "minecraft:double_wooden_slab", "1", "mcl_stairs:slab_spruce_double");
+CONV_D(125, "minecraft:double_wooden_slab", "2", "mcl_stairs:slab_birch_double");
+CONV_D(125, "minecraft:double_wooden_slab", "3", "mcl_stairs:slab_jungle_double");
+CONV_D(125, "minecraft:double_wooden_slab", "4", "mcl_stairs:slab_acacia_double");
+CONV_D(125, "minecraft:double_wooden_slab", "5", "mcl_stairs:slab_dark_oak_double");
 
 CONV_SLAB(126, "minecraft:wooden_slab", 0, 8, "mcl_stairs:slab_oak");
 CONV_SLAB(126, "minecraft:wooden_slab", 1, 9, "mcl_stairs:slab_spruce");
@@ -627,10 +643,12 @@ CONV(137, "minecraft:command_block", "mesecons_commandblock:commandblock_off"); 
 
 // 138: Beacon
 
+// TODO: walls are not connected
 CONV_D(139, "minecraft:cobblestone_wall", "0", "mcl_walls:cobble");
 CONV_D(139, "minecraft:cobblestone_wall", "1", "mcl_walls:mossycobble");
 
-// 140: Flower pot
+// TODO: check
+CONV(140, "minecraft:flower_pot", "mcl_flowerpots:flower_pot");
 
 CONV_D(141, "minecraft:carrots", "0", "mcl_farming:carrot_1");
 CONV_D(141, "minecraft:carrots", "1", "mcl_farming:carrot_2");
@@ -652,10 +670,10 @@ CONV_D(142, "minecraft:potatoes", "7", "mcl_farming:potato");
 
 // TODO: Up/Down orienations (requires mesecons support)
 // Note: power state is ignored, since it resets quickly.  See also: stone button
-CONV_DP(143, "minecraft:wooden_button", "1,9,0,8,5,13", "mesecons_button:button_oak_off", 1);
-CONV_DP(143, "minecraft:wooden_button", "2,10", "mesecons_button:button_oak_off", 3);
-CONV_DP(143, "minecraft:wooden_button", "3,11", "mesecons_button:button_oak_off", 2);
-CONV_DP(143, "minecraft:wooden_button", "4,12", "mesecons_button:button_oak_off", 0);
+CONV_DP(143, "minecraft:wooden_button", "1,9,0,8,5,13", "mcl_buttons:button_oak_off", 3);
+CONV_DP(143, "minecraft:wooden_button", "2,10", "mcl_buttons:button_oak_off", 2);
+CONV_DP(143, "minecraft:wooden_button", "3,11", "mcl_buttons:button_oak_off", 4);
+CONV_DP(143, "minecraft:wooden_button", "4,12", "mcl_buttons:button_oak_off", 5);
 
 // 144: Mob head
 
@@ -668,8 +686,8 @@ CONV_DP(146, "minecraft:trapped_chest", "4", "mcl_chests:trapped_chest", 1);
 CONV_DP(146, "minecraft:trapped_chest", "5", "mcl_chests:trapped_chest", 3);
 
 // TODO
-CONV(147, "minecraft:light_weighted_pressure_plate", "mesecons_pressureplates:pressure_plate_stone");
-CONV(148, "minecraft:heavy_weighted_pressure_plate", "mesecons_pressureplates:pressure_plate_stone");
+CONV(147, "minecraft:light_weighted_pressure_plate", "mcl_pressureplates:pressure_plate_stone_off");
+CONV(148, "minecraft:heavy_weighted_pressure_plate", "mcl_pressureplates:pressure_plate_stone_off");
 
 // TODO: 149: Redstone comparator (off) (logic gates)
 // 150: Redstone comparator (on)
@@ -801,7 +819,7 @@ CONV(181, "minecraft:double_stone_slab2", "mcl_core:redsandstone");
 CONV_SLAB(182, "minecraft:stone_slab2", 0, 8, "mcl_stairs:slab_redsandstone");
 
 CONV_GATE(183, "minecraft:spruce_fence_gate", "mcl_fences:spruce_fence_gate");
-CONV_GATE(184, "minecraft:birch_fence_gate", "mcl_fences:birch_fence_gat");
+CONV_GATE(184, "minecraft:birch_fence_gate", "mcl_fences:birch_fence_gate");
 CONV_GATE(185, "minecraft:jungle_fence_gate", "mcl_fences:jungle_fence_gate");
 CONV_GATE(186, "minecraft:dark_oak_fence_gate", "mcl_fences:dark_oak_fence_gate");
 CONV_GATE(187, "minecraft:acacia_fence_gate", "mcl_fences:acacia_fence_gate");
@@ -858,15 +876,10 @@ CONV_DP(216, "minecraft:bone_block", "0", "mcl_core:bone_block", 0);
 CONV_DP(216, "minecraft:bone_block", "4", "mcl_core:bone_block", 12);
 CONV_DP(216, "minecraft:bone_block", "8", "mcl_core:bone_block", 6);
 
-
 // 217: Structure Void
 // 218: Observer
-
 // 219-234: Shulker Box (coloured variants)
-
 // 235-250: Glazed Terracotta (coloured variants)
-
-
 
 CONV_D(251, "minecraft:concrete", "0", "mcl_colorblocks:concrete_white");
 CONV_D(251, "minecraft:concrete", "1", "mcl_colorblocks:concrete_orange");
