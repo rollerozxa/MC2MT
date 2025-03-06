@@ -224,19 +224,22 @@ CONV_DP(26, "minecraft:bed", "11,15", "mcl_beds:bed_red_top", 1); // E
 CONV(27, "minecraft:golden_rail", "mcl_minecarts:golden_rail");  // Powered rail
 CONV(28, "minecraft:detector_rail", "mcl_minecarts:detector_rail");
 
-// TODO: Check orientation
+// TODO: Check up/down pistons
 CONV_D(29, "minecraft:sticky_piston", "0", "mesecons_pistons:piston_down_sticky_off");
 CONV_D(29, "minecraft:sticky_piston", "1", "mesecons_pistons:piston_up_sticky_off");
-CONV_DP(29, "minecraft:sticky_piston", "2", "mesecons_pistons:piston_sticky_off", 0);  // N
-CONV_DP(29, "minecraft:sticky_piston", "3", "mesecons_pistons:piston_sticky_off", 2);  // S
-CONV_DP(29, "minecraft:sticky_piston", "4", "mesecons_pistons:piston_sticky_off", 3);  // W
-CONV_DP(29, "minecraft:sticky_piston", "5", "mesecons_pistons:piston_sticky_off", 1);  // E
+
+CONV_DP(29, "minecraft:sticky_piston", "2", "mcl_pistons:piston_sticky_off", 2);  // N
+CONV_DP(29, "minecraft:sticky_piston", "3", "mcl_pistons:piston_sticky_off", 0);  // S
+CONV_DP(29, "minecraft:sticky_piston", "4", "mcl_pistons:piston_sticky_off", 1);  // W
+CONV_DP(29, "minecraft:sticky_piston", "5", "mcl_pistons:piston_sticky_off", 3);  // E
+
 CONV_D(29, "minecraft:sticky_piston", "8", "mesecons_pistons:piston_down_sticky_on");
 CONV_D(29, "minecraft:sticky_piston", "9", "mesecons_pistons:piston_up_sticky_on");
-CONV_DP(29, "minecraft:sticky_piston", "10", "mesecons_pistons:piston_sticky_on", 0);  // N
-CONV_DP(29, "minecraft:sticky_piston", "11", "mesecons_pistons:piston_sticky_on", 2);  // S
-CONV_DP(29, "minecraft:sticky_piston", "12", "mesecons_pistons:piston_sticky_on", 3);  // W
-CONV_DP(29, "minecraft:sticky_piston", "13", "mesecons_pistons:piston_sticky_on", 1);  // E
+
+CONV_DP(29, "minecraft:sticky_piston", "10", "mcl_pistons:piston_sticky_on", 2);  // N
+CONV_DP(29, "minecraft:sticky_piston", "11", "mcl_pistons:piston_sticky_on", 0);  // S
+CONV_DP(29, "minecraft:sticky_piston", "12", "mcl_pistons:piston_sticky_on", 1);  // W
+CONV_DP(29, "minecraft:sticky_piston", "13", "mcl_pistons:piston_sticky_on", 3);  // E
 
 CONV(30, "minecraft:web", "mcl_core:cobweb");
 
@@ -246,32 +249,31 @@ CONV_D(31, "minecraft:tallgrass", "2", "mcl_flowers:fern");
 
 CONV(32, "minecraft:deadbush", "mcl_core:deadbush");
 
-// TODO: Check orientation
+// TODO: Check up/down pistons
 CONV_D(33, "minecraft:piston", "0", "mesecons_piston:piston_down_normal_off");
 CONV_D(33, "minecraft:piston", "1", "mesecons_piston:piston_up_normal_off");
-CONV_DP(33, "minecraft:piston", "2", "mesecons_piston:piston_normal_off", 0);  // N
-CONV_DP(33, "minecraft:piston", "3", "mesecons_piston:piston_normal_off", 2);  // S
-CONV_DP(33, "minecraft:piston", "4", "mesecons_piston:piston_normal_off", 3);  // W
-CONV_DP(33, "minecraft:piston", "5", "mesecons_piston:piston_normal_off", 1);  // E
+CONV_DP(33, "minecraft:piston", "2", "mesecons_piston:piston_normal_off", 2);  // N
+CONV_DP(33, "minecraft:piston", "3", "mesecons_piston:piston_normal_off", 0);  // S
+CONV_DP(33, "minecraft:piston", "4", "mesecons_piston:piston_normal_off", 1);  // W
+CONV_DP(33, "minecraft:piston", "5", "mesecons_piston:piston_normal_off", 3);  // E
 CONV_D(33, "minecraft:piston", "8", "mesecons_piston:piston_down_normal_on");
 CONV_D(33, "minecraft:piston", "9", "mesecons_piston:piston_up_normal_on");
-CONV_DP(33, "minecraft:piston", "10", "mesecons_piston:piston_normal_on", 0);  // N
-CONV_DP(33, "minecraft:piston", "11", "mesecons_piston:piston_normal_on", 2);  // S
-CONV_DP(33, "minecraft:piston", "12", "mesecons_piston:piston_normal_on", 3);  // W
-CONV_DP(33, "minecraft:piston", "13", "mesecons_piston:piston_normal_on", 1);  // E
-
+CONV_DP(33, "minecraft:piston", "10", "mesecons_piston:piston_normal_on", 2);  // N
+CONV_DP(33, "minecraft:piston", "11", "mesecons_piston:piston_normal_on", 0);  // S
+CONV_DP(33, "minecraft:piston", "12", "mesecons_piston:piston_normal_on", 1);  // W
+CONV_DP(33, "minecraft:piston", "13", "mesecons_piston:piston_normal_on", 3);  // E
 CONV_D(34, "minecraft:piston_head", "0", "mesecons_piston:piston_down_pusher_normal");
 CONV_D(34, "minecraft:piston_head", "1", "mesecons_piston:piston_up_pusher_normal");
-CONV_DP(34, "minecraft:piston_head", "2", "mesecons_piston:piston_pusher_normal", 0);  // N
-CONV_DP(34, "minecraft:piston_head", "3", "mesecons_piston:piston_pusher_normal", 2);  // S
-CONV_DP(34, "minecraft:piston_head", "4", "mesecons_piston:piston_pusher_normal", 3);  // W
-CONV_DP(34, "minecraft:piston_head", "5", "mesecons_piston:piston_pusher_normal", 1);  // E
+CONV_DP(34, "minecraft:piston_head", "2", "mesecons_piston:piston_pusher_normal", 2);  // N
+CONV_DP(34, "minecraft:piston_head", "3", "mesecons_piston:piston_pusher_normal", 0);  // S
+CONV_DP(34, "minecraft:piston_head", "4", "mesecons_piston:piston_pusher_normal", 1);  // W
+CONV_DP(34, "minecraft:piston_head", "5", "mesecons_piston:piston_pusher_normal", 3);  // E
 CONV_D(34, "minecraft:piston_head", "8", "mesecons_piston:piston_down_pusher_sticky");
 CONV_D(34, "minecraft:piston_head", "9", "mesecons_piston:piston_up_pusher_sticky");
-CONV_DP(34, "minecraft:piston_head", "10", "mesecons_piston:piston_pusher_sticky", 0);  // N
-CONV_DP(34, "minecraft:piston_head", "11", "mesecons_piston:piston_pusher_sticky", 2);  // S
-CONV_DP(34, "minecraft:piston_head", "12", "mesecons_piston:piston_pusher_sticky", 3);  // W
-CONV_DP(34, "minecraft:piston_head", "13", "mesecons_piston:piston_pusher_sticky", 1);  // E
+CONV_DP(34, "minecraft:piston_head", "10", "mesecons_piston:piston_pusher_sticky", 2);  // N
+CONV_DP(34, "minecraft:piston_head", "11", "mesecons_piston:piston_pusher_sticky", 0);  // S
+CONV_DP(34, "minecraft:piston_head", "12", "mesecons_piston:piston_pusher_sticky", 1);  // W
+CONV_DP(34, "minecraft:piston_head", "13", "mesecons_piston:piston_pusher_sticky", 3);  // E
 
 CONV_D(35, "minecraft:wool", "0", "mcl_wool:white");
 CONV_D(35, "minecraft:wool", "1", "mcl_wool:orange");
@@ -427,8 +429,21 @@ CONV(72, "minecraft:wooden_pressure_plate", "mcl_pressureplates:pressure_plate_o
 CONV(73, "minecraft:redstone_ore", "mcl_core:stone_with_redstone");
 CONV(74, "minecraft:lit_redstone_ore", "mcl_core:stone_with_redstone_lit");
 
-CONV_WALLMOUNTED(75, "minecraft:unlit_redstone_torch", "mesecons_torch:mesecon_torch_off", 0, 5, 3, 2, 4, 1);
-CONV_WALLMOUNTED(76, "minecraft:lit_redstone_torch", "mesecons_torch:mesecon_torch_on", 0, 5, 3, 2, 4, 1);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "0", "mcl_redstone_torch:redstone_torch_off", 1);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "1", "mcl_redstone_torch:redstone_torch_off_wall", 3);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "2", "mcl_redstone_torch:redstone_torch_off_wall", 2);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "3", "mcl_redstone_torch:redstone_torch_off_wall", 4);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "4", "mcl_redstone_torch:redstone_torch_off_wall", 5);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "5", "mcl_redstone_torch:redstone_torch_off", 1);
+
+CONV_DP(75, "minecraft:lit_redstone_torch", "0", "mcl_redstone_torch:redstone_torch_on", 1);
+CONV_DP(75, "minecraft:lit_redstone_torch", "1", "mcl_redstone_torch:redstone_torch_on_wall", 3);
+CONV_DP(75, "minecraft:lit_redstone_torch", "2", "mcl_redstone_torch:redstone_torch_on_wall", 2);
+CONV_DP(75, "minecraft:lit_redstone_torch", "3", "mcl_redstone_torch:redstone_torch_on_wall", 4);
+CONV_DP(75, "minecraft:lit_redstone_torch", "4", "mcl_redstone_torch:redstone_torch_on_wall", 5);
+CONV_DP(75, "minecraft:lit_redstone_torch", "5", "mcl_redstone_torch:redstone_torch_on", 1);
+//CONV_WALLMOUNTED(75, "minecraft:unlit_redstone_torch", "mesecons_torch:mesecon_torch_off", 0, 5, 3, 2, 4, 1);
+//CONV_WALLMOUNTED(76, "minecraft:lit_redstone_torch", "mesecons_torch:mesecon_torch_on", 0, 5, 3, 2, 4, 1);
 
 // TODO: Up/Down orienations
 // Note: power state is ignored, since it resets quickly.  See also: wooden button
