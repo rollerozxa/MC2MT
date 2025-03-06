@@ -378,14 +378,14 @@ CONV_D(59, "minecraft:wheat", "7", "mcl_farming:wheat");
 CONV(60, "minecraft:farmland", "mcl_farming:soil");
 CONV_D(60, "minecraft:farmland", "7", "mcl_farming:soil_wet");
 
-CONV_DP(61, "minecraft:furnace", "2", "mcl_furnaces:furnace", 0);  // N
-CONV_DP(61, "minecraft:furnace", "3", "mcl_furnaces:furnace", 2);  // S
-CONV_DP(61, "minecraft:furnace", "4", "mcl_furnaces:furnace", 3);  // W
-CONV_DP(61, "minecraft:furnace", "5", "mcl_furnaces:furnace", 1);  // E
-CONV_DP(62, "minecraft:lit_furnace", "2", "mcl_furnaces:furnace_active", 0);
-CONV_DP(62, "minecraft:lit_furnace", "3", "mcl_furnaces:furnace_active", 2);
-CONV_DP(62, "minecraft:lit_furnace", "4", "mcl_furnaces:furnace_active", 3);
-CONV_DP(62, "minecraft:lit_furnace", "5", "mcl_furnaces:furnace_active", 1);
+CONV_DP(61, "minecraft:furnace", "2", "mcl_furnaces:furnace", 2);  // N
+CONV_DP(61, "minecraft:furnace", "3", "mcl_furnaces:furnace", 0);  // S
+CONV_DP(61, "minecraft:furnace", "4", "mcl_furnaces:furnace", 1);  // W
+CONV_DP(61, "minecraft:furnace", "5", "mcl_furnaces:furnace", 3);  // E
+CONV_DP(62, "minecraft:lit_furnace", "2", "mcl_furnaces:furnace_active", 2);
+CONV_DP(62, "minecraft:lit_furnace", "3", "mcl_furnaces:furnace_active", 0);
+CONV_DP(62, "minecraft:lit_furnace", "4", "mcl_furnaces:furnace_active", 1);
+CONV_DP(62, "minecraft:lit_furnace", "5", "mcl_furnaces:furnace_active", 3);
 
 // TODO
 CONV_P(63, "minecraft:standing_sign", "mcl_signs:standing_sign", 1);
