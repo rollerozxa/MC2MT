@@ -1,16 +1,16 @@
 # MC2MT
-Converts a Minecraft world into a Minetest world. Compared to the `mcimport` tool written in Python it is **very fast**, and also allows for multhreading the workflow making it even faster.
+Converts a Minecraft world into a Luanti world. Compared to the `mcimport` tool written in Python it is **very fast**, and also allows for multhreading the workflow making it even faster.
 
 This tool should be compatible with Minecraft worlds stored in Scaevolous' McRegion format as well as Anvil format, up until Minecraft 1.12 (pre-flattening). It is however recommended that if you have a world in an older version of Minecraft that you fully upgrade it to the 1.12 Anvil format for best support as that is what the program is usually tested against.
 
 If you have a Minecraft world post-flattening (i.e. 1.13 or newer), then you can convert it to the 1.12 format using [Amulet](https://www.amuletmc.com/).
 
-When mapping Minecraft block IDs and data values into Minetest itemstrings and param2 values, a set of mappings for Mineclonia is used which can be found at `src/conversions.h`. When you put the converted world into your worlds folder it will be visible in the main menu when you select Mineclonia (not MineClone2, not Minetest Game).
+When mapping Minecraft block IDs and data values into Luanti itemstrings and param2 values, a set of mappings for Mineclonia is used which can be found at `src/conversions.h`. When you put the converted world into your worlds folder it will be visible in the main menu when you select Mineclonia (not MineClone2, not Minetest Game).
 
 Currently, the mappings are mostly complete for basic full building blocks, as that is what my usecase for a converter program is. If you convert a world that contains more complex blocks and it gets converted wrongly then please help fixing them so it can become better.
 
 ## Usage
-It is a command-line program. Call it from the terminal with two arguments, first argument is the input Minecraft world and second argument is the output Minetest world. For example:
+It is a command-line program. Call it from the terminal with two arguments, first argument is the input Minecraft world and second argument is the output Luanti world. For example:
 
 ```bash
 ./MC2MT ~/.minecraft/worlds/cool_world/ ~/.minetest/worlds/cool_world/
@@ -19,7 +19,7 @@ It is a command-line program. Call it from the terminal with two arguments, firs
 The program will also make a `world.mt` file as well as a worldmod that sets the mapgen to singlenode along with other things. If it detects a map database already present in the output location it will ask you before overwriting it.
 
 ## Building
-There is CI in place for building on Windows, macOS and Linux, which also produce binary artifacts that get uploaded to the [rolling](https://github.com/rollerozxa/MC2MT/releases/tag/rolling) release tag. This is especially useful for Windows and macOS users who do not want to compile, but the Linux binary may not work for you depending on what distribution you are on and you would want to build from source using the instructions below.
+There is CI in place for building on Windows, macOS and Linux, which also produce binary artifacts that get uploaded to the [rolling](https://github.com/rollerozxa/MC2MT/releases/tag/rolling) release tag. This is especially useful for Windows users who do not want to compile, but it is unknown if the produced macOS binaries work, and the Linux binary may not work for you depending on what distribution you are on. If the pre-built binaries do not work, follow along to build from source.
 
 All instructions below assume you have already downloaded or cloned the source code somewhere (e.g. `git clone https://github.com/rollerozxa/MC2MT`).
 
