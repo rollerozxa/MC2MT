@@ -350,11 +350,11 @@ CONV(52, "minecraft:mob_spawner", "mcl_mobspawners:spawner"); // TODO
 
 CONV_STAIR(53, "minecraft:oak_stairs", "mcl_stairs:stair_oak");
 
-// TODO
-CONV_DP(54, "minecraft:chest", "2", "mcl_chests:chest", 0);  // N
-CONV_DP(54, "minecraft:chest", "3", "mcl_chests:chest", 2);  // S
-CONV_DP(54, "minecraft:chest", "4", "mcl_chests:chest", 3);  // W
-CONV_DP(54, "minecraft:chest", "5", "mcl_chests:chest", 1);  // E
+// chest
+CONV_DP(54, "minecraft:chest", "2", "mcl_chests:chest", 2);  // N
+CONV_DP(54, "minecraft:chest", "3", "mcl_chests:chest", 0);  // S
+CONV_DP(54, "minecraft:chest", "4", "mcl_chests:chest", 1);  // W
+CONV_DP(54, "minecraft:chest", "5", "mcl_chests:chest", 3);  // E
 
 // XXX: Connections aren't saved, just power level
 CONV_D(55, "minecraft:redstone_wire", "0", "mesecons:wire_00000000_off");
@@ -606,8 +606,8 @@ CONV(119, "minecraft:end_portal", "mcl_portals:portal_end");
 CONV(121, "minecraft:end_stone", "mcl_end:end_stone");
 CONV(122, "minecraft:dragon_egg", "mcl_end:dragon_egg");
 
-CONV(123, "mesecons:redstone_lamp", "mcl_redstone_lamp:lamp_off");
-CONV(124, "mesecons:lit_redstone_lamp", "mcl_redstone_lamp:lamp_on");
+CONV(123, "minecraft:redstone_lamp", "mcl_redstone_lamp:lamp_off");
+CONV(124, "minecraft:lit_redstone_lamp", "mcl_redstone_lamp:lamp_on");
 
 CONV_D(125, "minecraft:double_wooden_slab", "0", "mcl_stairs:slab_oak_double");
 CONV_D(125, "minecraft:double_wooden_slab", "1", "mcl_stairs:slab_spruce_double");
@@ -639,7 +639,7 @@ CONV_STAIR(134, "minecraft:spruce_stairs", "mcl_stairs:stair_spruce");
 CONV_STAIR(135, "minecraft:birch_stairs", "mcl_stairs:stair_birch");
 CONV_STAIR(136, "minecraft:jungle_stairs", "mcl_stairs:stair_jungle");
 
-CONV(137, "minecraft:command_block", "mesecons_commandblock:commandblock_off"); // TODO (but probably not)
+CONV(137, "minecraft:command_block", "mcl_commandblock:commandblock_off"); // TODO (but probably not)
 
 // 138: Beacon
 
@@ -680,10 +680,10 @@ CONV_DP(143, "minecraft:wooden_button", "4,12", "mcl_buttons:button_oak_off", 5)
 CONV(145, "minecraft:anvil", "mcl_anvils:anvil");
 
 // Trapped chest
-CONV_DP(146, "minecraft:trapped_chest", "2", "mcl_chests:trapped_chest", 2);
-CONV_DP(146, "minecraft:trapped_chest", "3", "mcl_chests:trapped_chest", 0);
-CONV_DP(146, "minecraft:trapped_chest", "4", "mcl_chests:trapped_chest", 1);
-CONV_DP(146, "minecraft:trapped_chest", "5", "mcl_chests:trapped_chest", 3);
+CONV_DP(146, "minecraft:trapped_chest", "2", "mcl_chests:trapped_chest", 2); // N facing
+CONV_DP(146, "minecraft:trapped_chest", "3", "mcl_chests:trapped_chest", 0); // S facing
+CONV_DP(146, "minecraft:trapped_chest", "4", "mcl_chests:trapped_chest", 1); // W facing
+CONV_DP(146, "minecraft:trapped_chest", "5", "mcl_chests:trapped_chest", 3); // E facing
 
 // TODO
 CONV(147, "minecraft:light_weighted_pressure_plate", "mcl_pressureplates:pressure_plate_stone_off");
@@ -691,7 +691,8 @@ CONV(148, "minecraft:heavy_weighted_pressure_plate", "mcl_pressureplates:pressur
 
 // TODO: 149: Redstone comparator (off) (logic gates)
 // 150: Redstone comparator (on)
-// 151: Solar panel
+// Solar panel
+CONV(151, "minecraft:daylight_detector", "mcl_daylight_detector:daylight_detector");
 
 CONV(152, "minecraft:redstone_block", "mesecons_torch:redstoneblock");
 
