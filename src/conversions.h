@@ -570,6 +570,19 @@ CONV_DP(106, "minecraft:vine", "1", "mcl_core:vine", 5);
 CONV_DP(106, "minecraft:vine", "2", "mcl_core:vine", 3);
 CONV_DP(106, "minecraft:vine", "5", "mcl_core:vine", 2); // fixme: not "5" or "3"
 CONV_DP(106, "minecraft:vine", "4", "mcl_core:vine", 4);
+// missing 106:0
+// missing 106:10
+// missing 106:11
+// missing 106:12
+// missing 106:13
+// missing 106:14
+// missing 106:15
+// missing 106:3
+// missing 106:6
+// missing 106:7
+// missing 106:8
+// missing 106:9
+
 
 CONV_GATE(107, "minecraft:fence_gate", "mcl_fences:oak_fence_gate");
 
@@ -630,6 +643,11 @@ CONV_STAIR(128, "minecraft:sandstone_stairs", "mcl_stairs:stair_sandstone");
 CONV(129, "minecraft:emerald_ore", "mcl_core:stone_with_emerald");
 
 // 130: Ender chest
+CONV_DP(130, "minecraft:ender_chest", "2", "mcl_chests:ender_chest_small", 2);
+CONV_DP(130, "minecraft:ender_chest", "3", "mcl_chests:ender_chest_small", 0);
+CONV_DP(130, "minecraft:ender_chest", "4", "mcl_chests:ender_chest_small", 1);
+CONV_DP(130, "minecraft:ender_chest", "5", "mcl_chests:ender_chest_small", 3);
+
 // 131: Tripwire hook
 // 132: Tripwire
 
@@ -640,8 +658,7 @@ CONV_STAIR(135, "minecraft:birch_stairs", "mcl_stairs:stair_birch");
 CONV_STAIR(136, "minecraft:jungle_stairs", "mcl_stairs:stair_jungle");
 
 CONV(137, "minecraft:command_block", "mcl_commandblock:commandblock_off"); // TODO (but probably not)
-
-// 138: Beacon
+CONV(138, "minecraft:beacon", "mcl_beacons:beacon_beam");
 
 // TODO: walls are not connected
 CONV_D(139, "minecraft:cobblestone_wall", "0", "mcl_walls:cobble");
@@ -698,7 +715,8 @@ CONV(152, "minecraft:redstone_block", "mesecons_torch:redstoneblock");
 
 CONV(153, "minecraft:quartz_ore", "mcl_nether:quartz_ore");
 
-// 154: Hopper
+// TODO check orientation / variants
+CONV(154, "minecraft:hopper", "mcl_hoppers:hopper");
 
 CONV_D(155, "minecraft:quartz_block", "0", "mcl_nether:quartz_block");
 CONV_D(155, "minecraft:quartz_block", "1", "mcl_nether:quartz_chiseled");
@@ -880,6 +898,23 @@ CONV_DP(216, "minecraft:bone_block", "8", "mcl_core:bone_block", 6);
 // 217: Structure Void
 // 218: Observer
 // 219-234: Shulker Box (coloured variants)
+CONV(219, "minecraft:white_shulker_box", "mcl_chests:white_shulker_box_small");
+CONV(220, "minecraft:orange_shulker_box", "mcl_chests:orange_shulker_box_small");
+CONV(221, "minecraft:magenta_shulker_box", "mcl_chests:magenta_shulker_box_small");
+CONV(222, "minecraft:light_blue_shulker_box", "mcl_chests:lightblue_shulker_box_small");
+CONV(223, "minecraft:yellow_shulker_box", "mcl_chests:yellow_shulker_box_small");
+CONV(224, "minecraft:lime_shulker_box", "mcl_chests:green_shulker_box_small");
+CONV(225, "minecraft:pink_shulker_box", "mcl_chests:pink_shulker_box_small");
+CONV(226, "minecraft:gray_shulker_box", "mcl_chests:dark_grey_shulker_box_small");
+CONV(227, "minecraft:silver_shulker_box", "mcl_chests:grey_shulker_box_small");
+CONV(228, "minecraft:cyan_shulker_box", "mcl_chests:cyan_shulker_box_small");
+CONV(229, "minecraft:purple_shulker_box", "mcl_chests:violet_shulker_box_small");
+CONV(230, "minecraft:blue_shulker_box", "mcl_chests:blue_shulker_box_small");
+CONV(231, "minecraft:brown_shulker_box", "mcl_chests:brown_shulker_box_small");
+CONV(232, "minecraft:green_shulker_box", "mcl_chests:dark_green_shulker_box_small");
+CONV(233, "minecraft:red_shulker_box", "mcl_chests:red_shulker_box_small");
+CONV(234, "minecraft:black_shulker_box", "mcl_chests:black_shulker_box_small");
+
 // 235-250: Glazed Terracotta (coloured variants)
 
 CONV_D(251, "minecraft:concrete", "0", "mcl_colorblocks:concrete_white");
