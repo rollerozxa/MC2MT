@@ -92,8 +92,8 @@
 	CONV_DP(id, mcn, "6", mtn "_open", 3); \
 	CONV_DP(id, mcn, "7", mtn "_open", 1)
 
+// TODO: Door orientations and states need fixing
 #if MC_VERSION < 102
-// TODO: Check orientation
 #define CONV_DOOR(id, mcn, mtn) \
 	CONV_DP_CB(id, mcn, "0", mtn "_b_2", 0, old_door_set_right); \
 	CONV_DP_CB(id, mcn, "1", mtn "_b_2", 1, old_door_set_right); \
@@ -763,6 +763,7 @@ CONV_D(159, "minecraft:stained_hardened_clay", "13", "mcl_colorblocks:hardened_c
 CONV_D(159, "minecraft:stained_hardened_clay", "14", "mcl_colorblocks:hardened_clay_red");
 CONV_D(159, "minecraft:stained_hardened_clay", "15", "mcl_colorblocks:hardened_clay_black");
 
+// TODO: orientation needs fixing
 CONV_D(160, "minecraft:stained_glass_pane", "0", "mcl_panes:pane_white_flat");
 CONV_D(160, "minecraft:stained_glass_pane", "1", "mcl_panes:pane_orange_flat");
 CONV_D(160, "minecraft:stained_glass_pane", "2", "mcl_panes:pane_magenta_flat");
@@ -837,7 +838,6 @@ CONV_D(175, "minecraft:double_plant", "5", "mcl_flowers:peony");
 
 // "Bug in minecraft maps all top halves [of flowers] to '175 10'"
 // TODO: investigate this
-
 
 // 176: Standing banner
 // 177: Wall banner
