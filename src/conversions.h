@@ -92,8 +92,8 @@
 	CONV_DP(id, mcn, "6", mtn "_open", 3); \
 	CONV_DP(id, mcn, "7", mtn "_open", 1)
 
+// TODO: Door orientations and states need fixing
 #if MC_VERSION < 102
-// TODO: Check orientation
 #define CONV_DOOR(id, mcn, mtn) \
 	CONV_DP_CB(id, mcn, "0", mtn "_b_2", 0, old_door_set_right); \
 	CONV_DP_CB(id, mcn, "1", mtn "_b_2", 1, old_door_set_right); \
@@ -224,19 +224,22 @@ CONV_DP(26, "minecraft:bed", "11,15", "mcl_beds:bed_red_top", 1); // E
 CONV(27, "minecraft:golden_rail", "mcl_minecarts:golden_rail");  // Powered rail
 CONV(28, "minecraft:detector_rail", "mcl_minecarts:detector_rail");
 
-// TODO: Check orientation
+// TODO: Check up/down pistons
 CONV_D(29, "minecraft:sticky_piston", "0", "mesecons_pistons:piston_down_sticky_off");
 CONV_D(29, "minecraft:sticky_piston", "1", "mesecons_pistons:piston_up_sticky_off");
-CONV_DP(29, "minecraft:sticky_piston", "2", "mesecons_pistons:piston_sticky_off", 0);  // N
-CONV_DP(29, "minecraft:sticky_piston", "3", "mesecons_pistons:piston_sticky_off", 2);  // S
-CONV_DP(29, "minecraft:sticky_piston", "4", "mesecons_pistons:piston_sticky_off", 3);  // W
-CONV_DP(29, "minecraft:sticky_piston", "5", "mesecons_pistons:piston_sticky_off", 1);  // E
+
+CONV_DP(29, "minecraft:sticky_piston", "2", "mcl_pistons:piston_sticky_off", 2);  // N
+CONV_DP(29, "minecraft:sticky_piston", "3", "mcl_pistons:piston_sticky_off", 0);  // S
+CONV_DP(29, "minecraft:sticky_piston", "4", "mcl_pistons:piston_sticky_off", 1);  // W
+CONV_DP(29, "minecraft:sticky_piston", "5", "mcl_pistons:piston_sticky_off", 3);  // E
+
 CONV_D(29, "minecraft:sticky_piston", "8", "mesecons_pistons:piston_down_sticky_on");
 CONV_D(29, "minecraft:sticky_piston", "9", "mesecons_pistons:piston_up_sticky_on");
-CONV_DP(29, "minecraft:sticky_piston", "10", "mesecons_pistons:piston_sticky_on", 0);  // N
-CONV_DP(29, "minecraft:sticky_piston", "11", "mesecons_pistons:piston_sticky_on", 2);  // S
-CONV_DP(29, "minecraft:sticky_piston", "12", "mesecons_pistons:piston_sticky_on", 3);  // W
-CONV_DP(29, "minecraft:sticky_piston", "13", "mesecons_pistons:piston_sticky_on", 1);  // E
+
+CONV_DP(29, "minecraft:sticky_piston", "10", "mcl_pistons:piston_sticky_on", 2);  // N
+CONV_DP(29, "minecraft:sticky_piston", "11", "mcl_pistons:piston_sticky_on", 0);  // S
+CONV_DP(29, "minecraft:sticky_piston", "12", "mcl_pistons:piston_sticky_on", 1);  // W
+CONV_DP(29, "minecraft:sticky_piston", "13", "mcl_pistons:piston_sticky_on", 3);  // E
 
 CONV(30, "minecraft:web", "mcl_core:cobweb");
 
@@ -246,32 +249,31 @@ CONV_D(31, "minecraft:tallgrass", "2", "mcl_flowers:fern");
 
 CONV(32, "minecraft:deadbush", "mcl_core:deadbush");
 
-// TODO: Check orientation
+// TODO: Check up/down pistons
 CONV_D(33, "minecraft:piston", "0", "mesecons_piston:piston_down_normal_off");
 CONV_D(33, "minecraft:piston", "1", "mesecons_piston:piston_up_normal_off");
-CONV_DP(33, "minecraft:piston", "2", "mesecons_piston:piston_normal_off", 0);  // N
-CONV_DP(33, "minecraft:piston", "3", "mesecons_piston:piston_normal_off", 2);  // S
-CONV_DP(33, "minecraft:piston", "4", "mesecons_piston:piston_normal_off", 3);  // W
-CONV_DP(33, "minecraft:piston", "5", "mesecons_piston:piston_normal_off", 1);  // E
+CONV_DP(33, "minecraft:piston", "2", "mesecons_piston:piston_normal_off", 2);  // N
+CONV_DP(33, "minecraft:piston", "3", "mesecons_piston:piston_normal_off", 0);  // S
+CONV_DP(33, "minecraft:piston", "4", "mesecons_piston:piston_normal_off", 1);  // W
+CONV_DP(33, "minecraft:piston", "5", "mesecons_piston:piston_normal_off", 3);  // E
 CONV_D(33, "minecraft:piston", "8", "mesecons_piston:piston_down_normal_on");
 CONV_D(33, "minecraft:piston", "9", "mesecons_piston:piston_up_normal_on");
-CONV_DP(33, "minecraft:piston", "10", "mesecons_piston:piston_normal_on", 0);  // N
-CONV_DP(33, "minecraft:piston", "11", "mesecons_piston:piston_normal_on", 2);  // S
-CONV_DP(33, "minecraft:piston", "12", "mesecons_piston:piston_normal_on", 3);  // W
-CONV_DP(33, "minecraft:piston", "13", "mesecons_piston:piston_normal_on", 1);  // E
-
+CONV_DP(33, "minecraft:piston", "10", "mesecons_piston:piston_normal_on", 2);  // N
+CONV_DP(33, "minecraft:piston", "11", "mesecons_piston:piston_normal_on", 0);  // S
+CONV_DP(33, "minecraft:piston", "12", "mesecons_piston:piston_normal_on", 1);  // W
+CONV_DP(33, "minecraft:piston", "13", "mesecons_piston:piston_normal_on", 3);  // E
 CONV_D(34, "minecraft:piston_head", "0", "mesecons_piston:piston_down_pusher_normal");
 CONV_D(34, "minecraft:piston_head", "1", "mesecons_piston:piston_up_pusher_normal");
-CONV_DP(34, "minecraft:piston_head", "2", "mesecons_piston:piston_pusher_normal", 0);  // N
-CONV_DP(34, "minecraft:piston_head", "3", "mesecons_piston:piston_pusher_normal", 2);  // S
-CONV_DP(34, "minecraft:piston_head", "4", "mesecons_piston:piston_pusher_normal", 3);  // W
-CONV_DP(34, "minecraft:piston_head", "5", "mesecons_piston:piston_pusher_normal", 1);  // E
+CONV_DP(34, "minecraft:piston_head", "2", "mesecons_piston:piston_pusher_normal", 2);  // N
+CONV_DP(34, "minecraft:piston_head", "3", "mesecons_piston:piston_pusher_normal", 0);  // S
+CONV_DP(34, "minecraft:piston_head", "4", "mesecons_piston:piston_pusher_normal", 1);  // W
+CONV_DP(34, "minecraft:piston_head", "5", "mesecons_piston:piston_pusher_normal", 3);  // E
 CONV_D(34, "minecraft:piston_head", "8", "mesecons_piston:piston_down_pusher_sticky");
 CONV_D(34, "minecraft:piston_head", "9", "mesecons_piston:piston_up_pusher_sticky");
-CONV_DP(34, "minecraft:piston_head", "10", "mesecons_piston:piston_pusher_sticky", 0);  // N
-CONV_DP(34, "minecraft:piston_head", "11", "mesecons_piston:piston_pusher_sticky", 2);  // S
-CONV_DP(34, "minecraft:piston_head", "12", "mesecons_piston:piston_pusher_sticky", 3);  // W
-CONV_DP(34, "minecraft:piston_head", "13", "mesecons_piston:piston_pusher_sticky", 1);  // E
+CONV_DP(34, "minecraft:piston_head", "10", "mesecons_piston:piston_pusher_sticky", 2);  // N
+CONV_DP(34, "minecraft:piston_head", "11", "mesecons_piston:piston_pusher_sticky", 0);  // S
+CONV_DP(34, "minecraft:piston_head", "12", "mesecons_piston:piston_pusher_sticky", 1);  // W
+CONV_DP(34, "minecraft:piston_head", "13", "mesecons_piston:piston_pusher_sticky", 3);  // E
 
 CONV_D(35, "minecraft:wool", "0", "mcl_wool:white");
 CONV_D(35, "minecraft:wool", "1", "mcl_wool:orange");
@@ -350,11 +352,11 @@ CONV(52, "minecraft:mob_spawner", "mcl_mobspawners:spawner"); // TODO
 
 CONV_STAIR(53, "minecraft:oak_stairs", "mcl_stairs:stair_oak");
 
-// TODO
-CONV_DP(54, "minecraft:chest", "2", "mcl_chests:chest", 0);  // N
-CONV_DP(54, "minecraft:chest", "3", "mcl_chests:chest", 2);  // S
-CONV_DP(54, "minecraft:chest", "4", "mcl_chests:chest", 3);  // W
-CONV_DP(54, "minecraft:chest", "5", "mcl_chests:chest", 1);  // E
+// chest
+CONV_DP(54, "minecraft:chest", "2", "mcl_chests:chest", 2);  // N
+CONV_DP(54, "minecraft:chest", "3", "mcl_chests:chest", 0);  // S
+CONV_DP(54, "minecraft:chest", "4", "mcl_chests:chest", 1);  // W
+CONV_DP(54, "minecraft:chest", "5", "mcl_chests:chest", 3);  // E
 
 // XXX: Connections aren't saved, just power level
 CONV_D(55, "minecraft:redstone_wire", "0", "mesecons:wire_00000000_off");
@@ -378,14 +380,14 @@ CONV_D(59, "minecraft:wheat", "7", "mcl_farming:wheat");
 CONV(60, "minecraft:farmland", "mcl_farming:soil");
 CONV_D(60, "minecraft:farmland", "7", "mcl_farming:soil_wet");
 
-CONV_DP(61, "minecraft:furnace", "2", "mcl_furnaces:furnace", 0);  // N
-CONV_DP(61, "minecraft:furnace", "3", "mcl_furnaces:furnace", 2);  // S
-CONV_DP(61, "minecraft:furnace", "4", "mcl_furnaces:furnace", 3);  // W
-CONV_DP(61, "minecraft:furnace", "5", "mcl_furnaces:furnace", 1);  // E
-CONV_DP(62, "minecraft:lit_furnace", "2", "mcl_furnaces:furnace_active", 0);
-CONV_DP(62, "minecraft:lit_furnace", "3", "mcl_furnaces:furnace_active", 2);
-CONV_DP(62, "minecraft:lit_furnace", "4", "mcl_furnaces:furnace_active", 3);
-CONV_DP(62, "minecraft:lit_furnace", "5", "mcl_furnaces:furnace_active", 1);
+CONV_DP(61, "minecraft:furnace", "2", "mcl_furnaces:furnace", 2);  // N
+CONV_DP(61, "minecraft:furnace", "3", "mcl_furnaces:furnace", 0);  // S
+CONV_DP(61, "minecraft:furnace", "4", "mcl_furnaces:furnace", 1);  // W
+CONV_DP(61, "minecraft:furnace", "5", "mcl_furnaces:furnace", 3);  // E
+CONV_DP(62, "minecraft:lit_furnace", "2", "mcl_furnaces:furnace_active", 2);
+CONV_DP(62, "minecraft:lit_furnace", "3", "mcl_furnaces:furnace_active", 0);
+CONV_DP(62, "minecraft:lit_furnace", "4", "mcl_furnaces:furnace_active", 1);
+CONV_DP(62, "minecraft:lit_furnace", "5", "mcl_furnaces:furnace_active", 3);
 
 // TODO
 CONV_P(63, "minecraft:standing_sign", "mcl_signs:standing_sign", 1);
@@ -427,8 +429,21 @@ CONV(72, "minecraft:wooden_pressure_plate", "mcl_pressureplates:pressure_plate_o
 CONV(73, "minecraft:redstone_ore", "mcl_core:stone_with_redstone");
 CONV(74, "minecraft:lit_redstone_ore", "mcl_core:stone_with_redstone_lit");
 
-CONV_WALLMOUNTED(75, "minecraft:unlit_redstone_torch", "mesecons_torch:mesecon_torch_off", 0, 5, 3, 2, 4, 1);
-CONV_WALLMOUNTED(76, "minecraft:lit_redstone_torch", "mesecons_torch:mesecon_torch_on", 0, 5, 3, 2, 4, 1);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "0", "mcl_redstone_torch:redstone_torch_off", 1);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "1", "mcl_redstone_torch:redstone_torch_off_wall", 3);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "2", "mcl_redstone_torch:redstone_torch_off_wall", 2);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "3", "mcl_redstone_torch:redstone_torch_off_wall", 4);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "4", "mcl_redstone_torch:redstone_torch_off_wall", 5);
+CONV_DP(75, "minecraft:unlit_redstone_torch", "5", "mcl_redstone_torch:redstone_torch_off", 1);
+
+CONV_DP(75, "minecraft:lit_redstone_torch", "0", "mcl_redstone_torch:redstone_torch_on", 1);
+CONV_DP(75, "minecraft:lit_redstone_torch", "1", "mcl_redstone_torch:redstone_torch_on_wall", 3);
+CONV_DP(75, "minecraft:lit_redstone_torch", "2", "mcl_redstone_torch:redstone_torch_on_wall", 2);
+CONV_DP(75, "minecraft:lit_redstone_torch", "3", "mcl_redstone_torch:redstone_torch_on_wall", 4);
+CONV_DP(75, "minecraft:lit_redstone_torch", "4", "mcl_redstone_torch:redstone_torch_on_wall", 5);
+CONV_DP(75, "minecraft:lit_redstone_torch", "5", "mcl_redstone_torch:redstone_torch_on", 1);
+//CONV_WALLMOUNTED(75, "minecraft:unlit_redstone_torch", "mesecons_torch:mesecon_torch_off", 0, 5, 3, 2, 4, 1);
+//CONV_WALLMOUNTED(76, "minecraft:lit_redstone_torch", "mesecons_torch:mesecon_torch_on", 0, 5, 3, 2, 4, 1);
 
 // TODO: Up/Down orienations
 // Note: power state is ignored, since it resets quickly.  See also: wooden button
@@ -570,6 +585,19 @@ CONV_DP(106, "minecraft:vine", "1", "mcl_core:vine", 5);
 CONV_DP(106, "minecraft:vine", "2", "mcl_core:vine", 3);
 CONV_DP(106, "minecraft:vine", "5", "mcl_core:vine", 2); // fixme: not "5" or "3"
 CONV_DP(106, "minecraft:vine", "4", "mcl_core:vine", 4);
+// missing 106:0
+// missing 106:10
+// missing 106:11
+// missing 106:12
+// missing 106:13
+// missing 106:14
+// missing 106:15
+// missing 106:3
+// missing 106:6
+// missing 106:7
+// missing 106:8
+// missing 106:9
+
 
 CONV_GATE(107, "minecraft:fence_gate", "mcl_fences:oak_fence_gate");
 
@@ -606,8 +634,8 @@ CONV(119, "minecraft:end_portal", "mcl_portals:portal_end");
 CONV(121, "minecraft:end_stone", "mcl_end:end_stone");
 CONV(122, "minecraft:dragon_egg", "mcl_end:dragon_egg");
 
-CONV(123, "mesecons:redstone_lamp", "mcl_redstone_lamp:lamp_off");
-CONV(124, "mesecons:lit_redstone_lamp", "mcl_redstone_lamp:lamp_on");
+CONV(123, "minecraft:redstone_lamp", "mcl_redstone_lamp:lamp_off");
+CONV(124, "minecraft:lit_redstone_lamp", "mcl_redstone_lamp:lamp_on");
 
 CONV_D(125, "minecraft:double_wooden_slab", "0", "mcl_stairs:slab_oak_double");
 CONV_D(125, "minecraft:double_wooden_slab", "1", "mcl_stairs:slab_spruce_double");
@@ -630,6 +658,11 @@ CONV_STAIR(128, "minecraft:sandstone_stairs", "mcl_stairs:stair_sandstone");
 CONV(129, "minecraft:emerald_ore", "mcl_core:stone_with_emerald");
 
 // 130: Ender chest
+CONV_DP(130, "minecraft:ender_chest", "2", "mcl_chests:ender_chest_small", 2);
+CONV_DP(130, "minecraft:ender_chest", "3", "mcl_chests:ender_chest_small", 0);
+CONV_DP(130, "minecraft:ender_chest", "4", "mcl_chests:ender_chest_small", 1);
+CONV_DP(130, "minecraft:ender_chest", "5", "mcl_chests:ender_chest_small", 3);
+
 // 131: Tripwire hook
 // 132: Tripwire
 
@@ -639,9 +672,8 @@ CONV_STAIR(134, "minecraft:spruce_stairs", "mcl_stairs:stair_spruce");
 CONV_STAIR(135, "minecraft:birch_stairs", "mcl_stairs:stair_birch");
 CONV_STAIR(136, "minecraft:jungle_stairs", "mcl_stairs:stair_jungle");
 
-CONV(137, "minecraft:command_block", "mesecons_commandblock:commandblock_off"); // TODO (but probably not)
-
-// 138: Beacon
+CONV(137, "minecraft:command_block", "mcl_commandblock:commandblock_off"); // TODO (but probably not)
+CONV(138, "minecraft:beacon", "mcl_beacons:beacon_beam");
 
 // TODO: walls are not connected
 CONV_D(139, "minecraft:cobblestone_wall", "0", "mcl_walls:cobble");
@@ -680,10 +712,10 @@ CONV_DP(143, "minecraft:wooden_button", "4,12", "mcl_buttons:button_oak_off", 5)
 CONV(145, "minecraft:anvil", "mcl_anvils:anvil");
 
 // Trapped chest
-CONV_DP(146, "minecraft:trapped_chest", "2", "mcl_chests:trapped_chest", 2);
-CONV_DP(146, "minecraft:trapped_chest", "3", "mcl_chests:trapped_chest", 0);
-CONV_DP(146, "minecraft:trapped_chest", "4", "mcl_chests:trapped_chest", 1);
-CONV_DP(146, "minecraft:trapped_chest", "5", "mcl_chests:trapped_chest", 3);
+CONV_DP(146, "minecraft:trapped_chest", "2", "mcl_chests:trapped_chest", 2); // N facing
+CONV_DP(146, "minecraft:trapped_chest", "3", "mcl_chests:trapped_chest", 0); // S facing
+CONV_DP(146, "minecraft:trapped_chest", "4", "mcl_chests:trapped_chest", 1); // W facing
+CONV_DP(146, "minecraft:trapped_chest", "5", "mcl_chests:trapped_chest", 3); // E facing
 
 // TODO
 CONV(147, "minecraft:light_weighted_pressure_plate", "mcl_pressureplates:pressure_plate_stone_off");
@@ -691,13 +723,15 @@ CONV(148, "minecraft:heavy_weighted_pressure_plate", "mcl_pressureplates:pressur
 
 // TODO: 149: Redstone comparator (off) (logic gates)
 // 150: Redstone comparator (on)
-// 151: Solar panel
+// Solar panel
+CONV(151, "minecraft:daylight_detector", "mcl_daylight_detector:daylight_detector");
 
 CONV(152, "minecraft:redstone_block", "mesecons_torch:redstoneblock");
 
 CONV(153, "minecraft:quartz_ore", "mcl_nether:quartz_ore");
 
-// 154: Hopper
+// TODO check orientation / variants
+CONV(154, "minecraft:hopper", "mcl_hoppers:hopper");
 
 CONV_D(155, "minecraft:quartz_block", "0", "mcl_nether:quartz_block");
 CONV_D(155, "minecraft:quartz_block", "1", "mcl_nether:quartz_chiseled");
@@ -729,6 +763,7 @@ CONV_D(159, "minecraft:stained_hardened_clay", "13", "mcl_colorblocks:hardened_c
 CONV_D(159, "minecraft:stained_hardened_clay", "14", "mcl_colorblocks:hardened_clay_red");
 CONV_D(159, "minecraft:stained_hardened_clay", "15", "mcl_colorblocks:hardened_clay_black");
 
+// TODO: orientation needs fixing
 CONV_D(160, "minecraft:stained_glass_pane", "0", "mcl_panes:pane_white_flat");
 CONV_D(160, "minecraft:stained_glass_pane", "1", "mcl_panes:pane_orange_flat");
 CONV_D(160, "minecraft:stained_glass_pane", "2", "mcl_panes:pane_magenta_flat");
@@ -804,7 +839,6 @@ CONV_D(175, "minecraft:double_plant", "5", "mcl_flowers:peony");
 // "Bug in minecraft maps all top halves [of flowers] to '175 10'"
 // TODO: investigate this
 
-
 // 176: Standing banner
 // 177: Wall banner
 
@@ -879,6 +913,23 @@ CONV_DP(216, "minecraft:bone_block", "8", "mcl_core:bone_block", 6);
 // 217: Structure Void
 // 218: Observer
 // 219-234: Shulker Box (coloured variants)
+CONV(219, "minecraft:white_shulker_box", "mcl_chests:white_shulker_box_small");
+CONV(220, "minecraft:orange_shulker_box", "mcl_chests:orange_shulker_box_small");
+CONV(221, "minecraft:magenta_shulker_box", "mcl_chests:magenta_shulker_box_small");
+CONV(222, "minecraft:light_blue_shulker_box", "mcl_chests:lightblue_shulker_box_small");
+CONV(223, "minecraft:yellow_shulker_box", "mcl_chests:yellow_shulker_box_small");
+CONV(224, "minecraft:lime_shulker_box", "mcl_chests:green_shulker_box_small");
+CONV(225, "minecraft:pink_shulker_box", "mcl_chests:pink_shulker_box_small");
+CONV(226, "minecraft:gray_shulker_box", "mcl_chests:dark_grey_shulker_box_small");
+CONV(227, "minecraft:silver_shulker_box", "mcl_chests:grey_shulker_box_small");
+CONV(228, "minecraft:cyan_shulker_box", "mcl_chests:cyan_shulker_box_small");
+CONV(229, "minecraft:purple_shulker_box", "mcl_chests:violet_shulker_box_small");
+CONV(230, "minecraft:blue_shulker_box", "mcl_chests:blue_shulker_box_small");
+CONV(231, "minecraft:brown_shulker_box", "mcl_chests:brown_shulker_box_small");
+CONV(232, "minecraft:green_shulker_box", "mcl_chests:dark_green_shulker_box_small");
+CONV(233, "minecraft:red_shulker_box", "mcl_chests:red_shulker_box_small");
+CONV(234, "minecraft:black_shulker_box", "mcl_chests:black_shulker_box_small");
+
 // 235-250: Glazed Terracotta (coloured variants)
 
 CONV_D(251, "minecraft:concrete", "0", "mcl_colorblocks:concrete_white");
